@@ -15,6 +15,7 @@ function mapWalls(){
                     depth: blockSize,
                     asset: "brick",
                 })
+                wall.tag.object3D.userData.solid = true;
                 world.add(wall);
             }
         }

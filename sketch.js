@@ -1,6 +1,17 @@
 // world variable referencing to A-Frame world
 let world;
 
+//create global sensor
+let sensor;
+//note: use obj.tag.object3D.userData.solid = true; to tag objects that should stop user from moving forward
+
+//conversion offset for converting 2D coordinates into 3D: x3d = x2d + conversionOffset; y3d; z3d = y2d + conversionOffset
+let conversionOffset;
+
+//specify user positions
+//initial position
+let userX, userY, userZ;
+
 //wall mapping variables
 //wall mapping map
 let map;
@@ -17,8 +28,11 @@ let blockSize = 1;
 let enemies = [];
 let initialEnemyCount = 2;
 
+
+
+
 function preload(){
-    map = loadImage("sources/mazemap.png");
+    map = loadImage("sources/mazeMap.png");
 }
 
 function setup(){
@@ -28,6 +42,16 @@ function setup(){
     world = new AFrameP5.World('VRScene');
     //disable flying
     world.setFlying(false);
+    // disable WASD navigation
+    world.camera.cameraEl.removeAttribute('wasd-controls');
+    
+    //set conversion offset and set initial user position value
+    conversionOffset = -(worldSize/2);
+    userX = 52 + conversionOffset;
+    userY = 1;
+    userZ = 99 + conversionOffset;
+    //set initial user position
+    world.setUserPosition(userX, userY, userZ);
 
     //create grass ground plane
     let grass = new AFrameP5.Plane({
@@ -41,6 +65,7 @@ function setup(){
         repeatX: 100,
         repeatY:100,
     })
+    grass.tag.object3D.userData.solid = true;
     world.add(grass);
 
     //create sky
@@ -58,12 +83,96 @@ function setup(){
         //syntax: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
         enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
     }
+
+    //create sensors
+    sensor = new Sensor();
 }
 
 function draw(){
+    console.log(userX  + "\n" + userY + "\n" + userZ);
     for(let i = 0; i < initialEnemyCount; i++){
         enemies[i].move();
     }
+
+    let objectAhead = sensor.getEntityInFrontOfUser();
+    
+    // if the W key is pressed
+    if (keyIsDown(87)) {
+        // assume we can move forward
+        let noObstacle = true;
+        //console.log(objectAhead);
+
+        // if there is an object, it is close and it is solid, prevent motion
+        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+            noObstacle = false;
+        }
+
+        if (noObstacle) {
+            userZ -= 0.05;
+            world.setUserPosition(userX, userY, userX);
+        }
+    }
+
+    //if the S key is pressed
+    if (keyIsDown(83)) {
+        // assume we can move forward
+        let noObstacle = true;
+
+        //console.log(objectAhead);
+
+        // if there is an object, it is close and it is solid, prevent motion
+        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+            noObstacle = false;
+        }
+
+        if (noObstacle) {
+            userZ += 0.05;
+            world.setUserPosition(userX, userY, userX);
+        }
+    }
+
+    //if the A key is pressed
+    if (keyIsDown(65)) {
+        // assume we can move forward
+        let noObstacle = true;
+
+        //console.log(objectAhead);
+
+        // if there is an object, it is close and it is solid, prevent motion
+        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+            noObstacle = false;
+        }
+
+        if (noObstacle) {
+            userX -= 0.05;
+            world.setUserPosition(userX, userY, userX);
+        }
+    }
+
+    //if the D key is pressed
+    if (keyIsDown(68)) {
+        // assume we can move forward
+        let noObstacle = true;
+
+        //console.log(objectAhead);
+
+        // if there is an object, it is close and it is solid, prevent motion
+        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+            noObstacle = false;
+        }
+
+        if (noObstacle) {
+            userX += 0.05;
+            world.setUserPosition(userX, userY, userX);
+        }
+    }
+
+    
+
+    //moveUserForward
+    //rotate
+    //A left
+    //D right
 }
 
 
