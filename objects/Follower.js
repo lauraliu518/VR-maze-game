@@ -6,6 +6,7 @@ class Follower {
         this.speed = speed;
 
         this.createEnemy();
+        this.caughtUser = false;
     }
 
     createEnemy() {
@@ -34,6 +35,7 @@ class Follower {
                 }
 
                 if (distance <= 1) {
+                    this.caughtUser = true;
                     world.remove(box);
                     hudBuffer.clear();
                     updateHudColor(255, 0, 0);

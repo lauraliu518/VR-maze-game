@@ -34,3 +34,4 @@ function convert2Dto3D(twoDim){
     let threeDim = twoDim - worldSize/2;
     return threeDim;
 }
+
