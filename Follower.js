@@ -35,8 +35,8 @@ class Follower {
 
                 if (distance <= 1) {
                     world.remove(box);
-                    updateHudColor(255, 0, 0);
                     hudBuffer.clear();
+                    updateHudColor(255, 0, 0);
                     hudBuffer.textSize(50);
                     hudBuffer.textAlign(CENTER, CENTER);
                     hudBuffer.fill(255);
