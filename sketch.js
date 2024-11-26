@@ -201,7 +201,6 @@ function draw(){
             userX -= 0.05;
             world.setUserPosition(userX, userY, userZ);
         }
-    }
 
     // //if the D key is pressed
     // if (keyIsDown(68)) {
@@ -232,12 +231,10 @@ function draw(){
             userX += 0.05;
             world.setUserPosition(userX, userY, userZ);
         }
-    }
 
     //moveUserForward
     //rotate
     //A left
     //D right
-}
 
 
