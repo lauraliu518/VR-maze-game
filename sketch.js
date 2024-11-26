@@ -15,6 +15,7 @@ let userX, userY, userZ;
 //wall mapping variables
 //wall mapping map
 let map;
+let mazeMap;
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
 //3D world width and depth
@@ -28,11 +29,12 @@ let blockSize = 1;
 let enemies = [];
 let initialEnemyCount = 2;
 
-
-
+//hud variables
+let hudCanvas;
 
 function preload(){
     map = loadImage("sources/mazeMap.png");
+    mazeMap = loadImage("sources/mazeMap.png");
 }
 
 function setup(){
@@ -48,7 +50,7 @@ function setup(){
     //set conversion offset and set initial user position value
     conversionOffset = -(worldSize/2);
     userX = 52 + conversionOffset;
-    userY = 1;
+    userY = 2;
     userZ = 99 + conversionOffset;
     //set initial user position
     world.setUserPosition(userX, userY, userZ);
@@ -86,30 +88,41 @@ function setup(){
 
     //create sensors
     sensor = new Sensor();
+
+    let canvasElement = document.getElementById('hudCanvas');
+    hudCanvas = canvasElement.getContext('2d');
 }
 
 function draw(){
+    // let whatsBelow = sensor.getEntityBelowUser();
+    let objectAhead = sensor.getEntityInFrontOfUser();
+    let userPos = world.getUserPosition();
+    userX = userPos.x;
+    userZ = userPos.z;
+
     console.log(userX  + "\n" + userY + "\n" + userZ);
+    
     for(let i = 0; i < initialEnemyCount; i++){
         enemies[i].move();
     }
-
-    let objectAhead = sensor.getEntityInFrontOfUser();
     
     // if the W key is pressed
     if (keyIsDown(87)) {
         // assume we can move forward
         let noObstacle = true;
+        
         //console.log(objectAhead);
 
         // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
+            userZ += 0.1;
+            world.setUserPosition(userX, userY, userZ);
         }
 
         if (noObstacle) {
             userZ -= 0.05;
-            world.setUserPosition(userX, userY, userX);
+            world.setUserPosition(userX, userY, userZ);
         }
     }
 
@@ -121,13 +134,15 @@ function draw(){
         //console.log(objectAhead);
 
         // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
+            userZ -= 0.1;
+            world.setUserPosition(userX, userY, userZ);
         }
 
         if (noObstacle) {
             userZ += 0.05;
-            world.setUserPosition(userX, userY, userX);
+            world.setUserPosition(userX, userY, userZ);
         }
     }
 
@@ -139,13 +154,15 @@ function draw(){
         //console.log(objectAhead);
 
         // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
+            userX += 0.1;
+            world.setUserPosition(userX, userY, userZ);
         }
 
         if (noObstacle) {
             userX -= 0.05;
-            world.setUserPosition(userX, userY, userX);
+            world.setUserPosition(userX, userY, userZ);
         }
     }
 
@@ -157,17 +174,17 @@ function draw(){
         //console.log(objectAhead);
 
         // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
+            userX -= 0.1;
+            world.setUserPosition(userX, userY, userZ);
         }
 
         if (noObstacle) {
             userX += 0.05;
-            world.setUserPosition(userX, userY, userX);
+            world.setUserPosition(userX, userY, userZ);
         }
     }
-
-    
 
     //moveUserForward
     //rotate

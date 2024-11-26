@@ -19,6 +19,9 @@ class Sensor{
         this.userPosition.y = cp.y;
         this.userPosition.z = cp.z;
 
+        let cameraDirection = new THREE.Vector3();
+        world.camera.cameraEl.object3D.getWorldDirection(cameraDirection);
+
         // reset camera
         if (world.camera.cameraEl && world.camera.cameraEl.object3D && world.camera.cameraEl.object3D.children.length >= 2) {
 
