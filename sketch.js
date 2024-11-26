@@ -45,7 +45,7 @@ function setup(){
     //disable flying
     world.setFlying(false);
     // disable WASD navigation
-    world.camera.cameraEl.removeAttribute('wasd-controls');
+   //world.camera.cameraEl.removeAttribute('wasd-controls');
     
     //set conversion offset and set initial user position value
     conversionOffset = -(worldSize/2);
@@ -88,6 +88,12 @@ function setup(){
 
     //create sensors
     sensor = new Sensor();
+    for (let i = 0; i < 100; i++) {
+        let coinType = random([1, 2]) == 1 ? "octahedron" : "cylinder";
+        let x = random(-48, 48);
+        let z = random(-48, 48);
+        new Coin(coinType, x, z);
+    }
 
     let canvasElement = document.getElementById('hudCanvas');
     hudCanvas = canvasElement.getContext('2d');
@@ -107,12 +113,20 @@ function draw(){
     }
     
     // if the W key is pressed
+    // if (keyIsDown(87)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
+    //     //console.log(objectAhead);
     if (keyIsDown(87)) {
         // assume we can move forward
         let noObstacle = true;
         
         //console.log(objectAhead);
 
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
         // if there is an object, it is close and it is solid, prevent motion
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
@@ -120,19 +134,28 @@ function draw(){
             world.setUserPosition(userX, userY, userZ);
         }
 
+    //     if (noObstacle) {
+    //         userZ -= 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
         if (noObstacle) {
             userZ -= 0.05;
             world.setUserPosition(userX, userY, userZ);
         }
     }
 
-    //if the S key is pressed
-    if (keyIsDown(83)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the S key is pressed
+    // if (keyIsDown(83)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
         // if there is an object, it is close and it is solid, prevent motion
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
@@ -140,19 +163,28 @@ function draw(){
             world.setUserPosition(userX, userY, userZ);
         }
 
+    //     if (noObstacle) {
+    //         userZ += 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
         if (noObstacle) {
             userZ += 0.05;
             world.setUserPosition(userX, userY, userZ);
         }
     }
 
-    //if the A key is pressed
-    if (keyIsDown(65)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the A key is pressed
+    // if (keyIsDown(65)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
         // if there is an object, it is close and it is solid, prevent motion
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
@@ -160,19 +192,28 @@ function draw(){
             world.setUserPosition(userX, userY, userZ);
         }
 
+    //     if (noObstacle) {
+    //         userX -= 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
         if (noObstacle) {
             userX -= 0.05;
             world.setUserPosition(userX, userY, userZ);
         }
     }
 
-    //if the D key is pressed
-    if (keyIsDown(68)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the D key is pressed
+    // if (keyIsDown(68)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
         // if there is an object, it is close and it is solid, prevent motion
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
@@ -180,6 +221,13 @@ function draw(){
             world.setUserPosition(userX, userY, userZ);
         }
 
+    //     if (noObstacle) {
+    //         userX += 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
+
+    
         if (noObstacle) {
             userX += 0.05;
             world.setUserPosition(userX, userY, userZ);
