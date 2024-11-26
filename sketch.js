@@ -43,7 +43,7 @@ function setup(){
     //disable flying
     world.setFlying(false);
     // disable WASD navigation
-    world.camera.cameraEl.removeAttribute('wasd-controls');
+   //world.camera.cameraEl.removeAttribute('wasd-controls');
     
     //set conversion offset and set initial user position value
     conversionOffset = -(worldSize/2);
@@ -97,75 +97,75 @@ function draw(){
     let objectAhead = sensor.getEntityInFrontOfUser();
     
     // if the W key is pressed
-    if (keyIsDown(87)) {
-        // assume we can move forward
-        let noObstacle = true;
-        //console.log(objectAhead);
+    // if (keyIsDown(87)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
+    //     //console.log(objectAhead);
 
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-        }
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
 
-        if (noObstacle) {
-            userZ -= 0.05;
-            world.setUserPosition(userX, userY, userX);
-        }
-    }
+    //     if (noObstacle) {
+    //         userZ -= 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
 
-    //if the S key is pressed
-    if (keyIsDown(83)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the S key is pressed
+    // if (keyIsDown(83)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-        }
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
 
-        if (noObstacle) {
-            userZ += 0.05;
-            world.setUserPosition(userX, userY, userX);
-        }
-    }
+    //     if (noObstacle) {
+    //         userZ += 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
 
-    //if the A key is pressed
-    if (keyIsDown(65)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the A key is pressed
+    // if (keyIsDown(65)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-        }
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
 
-        if (noObstacle) {
-            userX -= 0.05;
-            world.setUserPosition(userX, userY, userX);
-        }
-    }
+    //     if (noObstacle) {
+    //         userX -= 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
 
-    //if the D key is pressed
-    if (keyIsDown(68)) {
-        // assume we can move forward
-        let noObstacle = true;
+    // //if the D key is pressed
+    // if (keyIsDown(68)) {
+    //     // assume we can move forward
+    //     let noObstacle = true;
 
-        //console.log(objectAhead);
+    //     //console.log(objectAhead);
 
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-        }
+    //     // if there is an object, it is close and it is solid, prevent motion
+    //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
+    //         noObstacle = false;
+    //     }
 
-        if (noObstacle) {
-            userX += 0.05;
-            world.setUserPosition(userX, userY, userX);
-        }
-    }
+    //     if (noObstacle) {
+    //         userX += 0.05;
+    //         world.setUserPosition(userX, userY, userX);
+    //     }
+    // }
 
     
 
