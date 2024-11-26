@@ -46,6 +46,9 @@ function setup(){
     world.setFlying(false);
     // disable WASD navigation
    //world.camera.cameraEl.removeAttribute('wasd-controls');
+
+   //HUD
+   createFullScreenHud();
     
     //set conversion offset and set initial user position value
     conversionOffset = -(worldSize/2);
@@ -93,6 +96,12 @@ function setup(){
         let x = random(-48, 48);
         let z = random(-48, 48);
         new Coin(coinType, x, z);
+    }
+
+    for (let i = 0; i < 100; i++) {
+        let x = random(-48, 48);
+        let z = random(-48, 48);
+        new Follower(x,1,z,0.01);
     }
 
     let canvasElement = document.getElementById('hudCanvas');
