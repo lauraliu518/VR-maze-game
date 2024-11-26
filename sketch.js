@@ -235,7 +235,6 @@ function draw(){
     //     }
     // }
 
-    
         if (noObstacle) {
             userX += 0.05;
             world.setUserPosition(userX, userY, userZ);
