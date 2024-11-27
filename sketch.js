@@ -32,6 +32,9 @@ let initialEnemyCount = 2;
 //hud variables
 let hudCanvas;
 
+//localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
+let win = 0;
+
 function preload(){
     map = loadImage("sources/mazeMap.png");
     mazeMap = loadImage("sources/mazeMap.png");
@@ -43,7 +46,7 @@ function setup(){
     // construct A-Frame world
     world = new AFrameP5.World('VRScene');
     //disable flying
-    world.setFlying(false);
+    //world.setFlying(false);
     // disable WASD navigation
    //world.camera.cameraEl.removeAttribute('wasd-controls');
 
@@ -98,10 +101,28 @@ function setup(){
         new Coin(coinType, x, z);
     }
 
+    //waiting to be replaced into real exit door objects later, using a box for placeholder
+    let exitDoor = new AFrameP5.Box({
+        x: 2,
+        y: 2,
+        z: 40,
+        width: 1,
+        height: 10,
+        depth: 1,
+        red:255, green: 255, blue: 0,
+        clickFunction: function (theBox) {
+            win = 2;
+        },
+    })
+    world.add(exitDoor);
+
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
-        new Follower(x,1,z,0.01);
+        let f = new Follower(x,1,z,0.01);
+        if(f.caughtUser){
+            win = 1; //lose the game
+        }
     }
 
     let canvasElement = document.getElementById('hudCanvas');
@@ -109,140 +130,86 @@ function setup(){
 }
 
 function draw(){
-    // let whatsBelow = sensor.getEntityBelowUser();
+    for(let i = 0; i < initialEnemyCount; i++){
+        enemies[i].move();
+    }
+
+    //update winning state
+    if(win != 0){
+        //redirect to ending webpage
+        window.localStorage.setItem("winState", win);
+        window.location.href = "ending.html";
+    }
+
+
+
+    //Laura: This entire part below is for movements and it is still in progress, please do not touch it for now!! Thanks!!
     let objectAhead = sensor.getEntityInFrontOfUser();
     let userPos = world.getUserPosition();
     userX = userPos.x;
     userZ = userPos.z;
-
-    console.log(userX  + "\n" + userY + "\n" + userZ);
-    
-    for(let i = 0; i < initialEnemyCount; i++){
-        enemies[i].move();
-    }
-    
-    // if the W key is pressed
+    //console.log(userX  + "\n" + userY + "\n" + userZ);
+    // //if the W key is pressed
     // if (keyIsDown(87)) {
     //     // assume we can move forward
     //     let noObstacle = true;
     //     //console.log(objectAhead);
-    if (keyIsDown(87)) {
-        // assume we can move forward
-        let noObstacle = true;
-        
-        //console.log(objectAhead);
-
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-            userZ += 0.1;
-            world.setUserPosition(userX, userY, userZ);
-        }
-
     //     if (noObstacle) {
     //         userZ -= 0.05;
     //         world.setUserPosition(userX, userY, userX);
     //     }
     // }
-        if (noObstacle) {
-            userZ -= 0.05;
-            world.setUserPosition(userX, userY, userZ);
-        }
-    }
-
     // //if the S key is pressed
     // if (keyIsDown(83)) {
     //     // assume we can move forward
     //     let noObstacle = true;
-
     //     //console.log(objectAhead);
-
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-            userZ -= 0.1;
-            world.setUserPosition(userX, userY, userZ);
-        }
-
     //     if (noObstacle) {
     //         userZ += 0.05;
     //         world.setUserPosition(userX, userY, userX);
     //     }
     // }
-        if (noObstacle) {
-            userZ += 0.05;
-            world.setUserPosition(userX, userY, userZ);
-        }
-    }
-
     // //if the A key is pressed
     // if (keyIsDown(65)) {
     //     // assume we can move forward
     //     let noObstacle = true;
-
     //     //console.log(objectAhead);
-
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-            userX += 0.1;
-            world.setUserPosition(userX, userY, userZ);
-        }
-
     //     if (noObstacle) {
     //         userX -= 0.05;
     //         world.setUserPosition(userX, userY, userX);
     //     }
     // }
-        if (noObstacle) {
-            userX -= 0.05;
-            world.setUserPosition(userX, userY, userZ);
-        }
-
     // //if the D key is pressed
     // if (keyIsDown(68)) {
     //     // assume we can move forward
     //     let noObstacle = true;
-
     //     //console.log(objectAhead);
-
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
-        // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
-            noObstacle = false;
-            userX -= 0.1;
-            world.setUserPosition(userX, userY, userZ);
-        }
 
     //     if (noObstacle) {
     //         userX += 0.05;
     //         world.setUserPosition(userX, userY, userX);
     //     }
     // }
-
-        if (noObstacle) {
-            userX += 0.05;
-            world.setUserPosition(userX, userY, userZ);
-        }
-
-    //moveUserForward
-    //rotate
-    //A left
-    //D right
-
+    // moveUserForward
+    // rotate
+    // A left
+    // D right
+    
+}
 
