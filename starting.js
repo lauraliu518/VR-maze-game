@@ -1,0 +1,1 @@
+// elizabeth's tasks, minimap/dynamic texture?, trees, starting page, lighting?, time of say and timer somewhere, loading page

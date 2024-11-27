@@ -1,3 +1,5 @@
+console.log("SHETCH");
+
 // world variable referencing to A-Frame world
 let world;
 
@@ -213,3 +215,5 @@ function draw(){
     
 }
 
+// world.getuserposition
+// map function in the minimap
