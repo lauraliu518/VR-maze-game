@@ -32,8 +32,8 @@ let initialEnemyCount = 2;
 //hud variables
 let hudCanvas;
 
-//localStorage variables for winning or losing the game
-let win;
+//localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
+let win = 0;
 
 function preload(){
     map = loadImage("sources/mazeMap.png");
@@ -111,7 +111,7 @@ function setup(){
         depth: 1,
         red:255, green: 255, blue: 0,
         clickFunction: function (theBox) {
-            win = 1;
+            win = 2;
         },
     })
     world.add(exitDoor);
@@ -121,7 +121,7 @@ function setup(){
         let z = random(-48, 48);
         let f = new Follower(x,1,z,0.01);
         if(f.caughtUser){
-            win = 0; //lose the game
+            win = 1; //lose the game
         }
     }
 
@@ -135,11 +135,10 @@ function draw(){
     }
 
     //update winning state
-    if(win != null){
+    if(win != 0){
         //redirect to ending webpage
-        window.location.href = "ending.html";
-        //console.log(win);
         window.localStorage.setItem("winState", win);
+        window.location.href = "ending.html";
     }
 
 
