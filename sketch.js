@@ -160,7 +160,7 @@ function draw(){
     //     }
     //     if (noObstacle) {
     //         userZ -= 0.05;
-    //         world.setUserPosition(userX, userY, userX);
+    //         world.setUserPosition(userX, userY, userZ);
     //     }
     // }
     // //if the S key is pressed
@@ -174,7 +174,7 @@ function draw(){
     //     }
     //     if (noObstacle) {
     //         userZ += 0.05;
-    //         world.setUserPosition(userX, userY, userX);
+    //         world.setUserPosition(userX, userY, userZ);
     //     }
     // }
     // //if the A key is pressed
@@ -188,7 +188,7 @@ function draw(){
     //     }
     //     if (noObstacle) {
     //         userX -= 0.05;
-    //         world.setUserPosition(userX, userY, userX);
+    //         world.setUserPosition(userX, userY, userZ);
     //     }
     // }
     // //if the D key is pressed
@@ -203,7 +203,7 @@ function draw(){
 
     //     if (noObstacle) {
     //         userX += 0.05;
-    //         world.setUserPosition(userX, userY, userX);
+    //         world.setUserPosition(userX, userY, userZ);
     //     }
     // }
     // moveUserForward
