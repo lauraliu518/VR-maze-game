@@ -42,7 +42,7 @@ function setup(){
 
 function draw(){
     if(winState == 1){
-        background(0, 255, 0);
+        lose();
     }else if(winState == 2){
         win();
     }
@@ -87,6 +87,76 @@ function win(){
     textSize(50);
     fill(150, 75, 0);
     stroke(50, 30, 30);
+    strokeWeight(8);
+    textStyle(BOLD);
+    textAlign(CENTER);
+    timeTaken = int(timeTaken);
+    text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
+    text("Press PLAY to replay", width/2, height/2+1*height/15);
+
+    //PLAY button
+    imageMode(CENTER);
+    image(playImg, width/2, height/2+height/3.5);
+    imageMode(CORNER);
+
+    //PLAY button collision box indicator
+    buffer.background(0);
+    buffer.fill(255, 0, 0);
+    buffer.stroke(255, 0, 0);
+    buffer.strokeWeight(2);
+    buffer.rectMode(CENTER);
+    buffer.rect(width/2, height/2+height/3.5, width/4, height/7, 30);
+    // image(buffer,0,0);
+    //page jump back to game play
+    let mouseLocRedness = red(buffer.get(mouseX, mouseY));
+    //console.log(mouseLocRedness);
+    if(mouseLocRedness == 255 && mouseIsPressed){
+        window.localStorage.setItem("winState", 0);
+        winState = 0;
+        window.location.href = "index.html";
+    }
+
+}
+
+function lose(){
+    background(bg);
+
+    // //background panel tint
+    // rectMode(CENTER);
+    // fill(215, 157, 102, 80);
+    // noStroke();
+    // rect(width/2, height/2, width/1.2, height/1.1, 30);
+
+    //falling bricks
+    for(let i = 0; i < 30; i++){
+        bricks.push(new Brick);
+        bricks[i].fall();
+        if(bricks[i].left()){
+            bricks.splice(i, 1);
+            i--;
+            bricks.push(new Brick);
+        }
+    }
+
+
+    //YOU WIN! headline
+    textToRotate = "  GAME OVER!";
+    strokeWeight(20);
+    stroke(100, 30, 30);
+    textSize(50);
+    fill(255, 75, 0);
+    rotateText(width/2, height/2+height/15, 300, textToRotate);
+
+    //center info panel tint
+    rectMode(CENTER);
+    fill(255, 255, 255, 50);
+    noStroke();
+    rect(width/2, height/2, width/1.5, height/3, 30);
+
+    //center info
+    textSize(50);
+    fill(255, 75, 0);
+    stroke(100, 30, 30);
     strokeWeight(8);
     textStyle(BOLD);
     textAlign(CENTER);
@@ -177,3 +247,4 @@ class Brick{
         }
     }
 }
+
