@@ -44,8 +44,6 @@ let doorX = 48;
 let doorY = 0;
 let doorZ = 0;
 
-let speed = 0.10;
-
 let speed = 0.05;
 
 function preload(){
@@ -245,8 +243,11 @@ function draw(){
             world.moveUserRight(speed);
         }
     }
-
-    
+    for(let i = 0; i < 1; i++){
+        if(followers[i].caughtUser){
+            win = 1; //lose the game
+        }
+    }
     
 }
 
