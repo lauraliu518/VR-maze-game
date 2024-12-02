@@ -23,14 +23,16 @@ class Follower {
             height: 1,
             width: 1,
             depth: 1,
-
+            //png
+            //lookat->planes
+            //animated gif""itch.io, craftpix.net->png spritesheet" -> dynamic texture
             tickFunction: function (box) {
                 const userPosition = world.getUserPosition();
-                const weaponPosition = weapon.weapon.tag.object3D.position; // Access weapon position
-                //console.log(weaponPosition);
+                const weaponPosition = weapon.weapon.getWorldPosition(); // Access weapon position
+                //console.log("Weapos:"+weaponPosition.x,weaponPosition.z);
+    
                 const userDistance = dist(userPosition.x, userPosition.z, box.x, box.z);
                 const weaponDistance = dist(weaponPosition.x, weaponPosition.z, box.x, box.z);
-                //console.log(weaponDistance);
 
                 // Follow user if within a certain range
                 if (userDistance <= 5) {
@@ -38,7 +40,7 @@ class Follower {
                     box.x += enemyInstance.speed * cos(angle);
                     box.z += enemyInstance.speed * sin(angle);
                     box.setPosition(box.x, box.y, box.z);
-                    console.log("Coming");
+                    //console.log("Coming");
                 }
 
                 // Check collision with the user
@@ -55,7 +57,7 @@ class Follower {
                 }
 
                 // Check collision with the weapon
-                if (weaponDistance <= 1) {
+                if (Weapon.isSwinging&&weaponDistance <= 1.5) {
                     console.log("Enemy hit by weapon!");
                     world.remove(box);
                 }
