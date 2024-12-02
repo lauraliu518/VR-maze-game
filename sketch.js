@@ -15,6 +15,7 @@ let userX, userY, userZ;
 //wall mapping variables
 //wall mapping map
 let mapGraphic;
+let level;
 
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
@@ -39,22 +40,33 @@ let win = 0;
 let weapon;
 
 //exit door variables
-let doorX = 47;
-let doorY = 1;
+let doorX = 48;
+let doorY = 0;
 let doorZ = 0;
 
-//number of followers -- depends on difficulty
-let numFollower;
+let speed = 0.10;
 
 let speed = 0.05;
 
 function preload(){
-    mapGraphic = loadImage("sources/maps/level1.png");
+    level1 = loadImage("sources/maps/level1.png");
+    level2 = loadImage("sources/maps/level2.png");
+    level3 = loadImage("sources/maps/level3.png");
 }
 
 function setup(){
+    level = window.localStorage.getItem("level");
+    if(level == 1){
+        mapGraphic = level1;
+    }else if(level == 2){
+        mapGraphic = level2;
+    }else if(level == 3){
+        mapGraphic = level3;
+    }else{
+        
+    }
+
     // no canvas needed
-    numFollower = 10;
     noCanvas();
     // construct A-Frame world
     world = new AFrameP5.World('VRScene');
@@ -78,14 +90,11 @@ function setup(){
     doorX = doorX + conversionOffset;
     doorZ = doorZ + conversionOffset;
     //create exit door
-    let exitDoor = new AFrameP5.Box({
+    let exitDoor = new AFrameP5.GLTF({
         x: doorX,
         y: doorY,
         z: doorZ,
-        width: 1,
-        height: 10,
-        depth: 1,
-        red:255, green: 255, blue: 0,
+        rotationY: -90,
         asset: "door",
         clickFunction: function (theBox) {
             win = 2;
@@ -116,7 +125,13 @@ function setup(){
 
     //create walls based on wall map
     mapWalls();
-    //add
+
+    //enemies
+    //adding enemies
+    for(let i = 0; i < initialEnemyCount; i++){
+        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
+        enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
+    }
 
     //create sensors
     sensor = new Sensor();
@@ -129,7 +144,7 @@ function setup(){
 
     
 
-    for (let i = 0; i < numFollower; i++) {
+    for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
         followers.push(new Follower(x,1.5,z,0.01));
@@ -164,22 +179,12 @@ function draw(){
     buffer1.background(128);
     buffer1.image(mapGraphic, 0, 0, 256, 256);
 
-    //display enemy position
-    for(let i = 0; i < numFollower; i++){
-        let miniFollowerMapX = map(followers[i].x, -50, 50, 0, 256);
-        let miniFollowerMapY = map(followers[i].z, -50, 50, 0, 256);
-        buffer1.fill(255, 0, 0);
-        buffer1.ellipse(miniFollowerMapX, miniFollowerMapY, 10, 10);
-    }
-
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
 
     //console.log(miniMapX, miniMapY);
     buffer1.fill(0, 0, 255);
     buffer1.ellipse(miniMapX, miniMapY, 20, 20);
-
-    
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
@@ -210,8 +215,7 @@ function draw(){
     if (keyIsDown(83)) {
         let objectAhead = sensor.getEntityBehindUser();
         let noObstacle = true;
-        //console.log(objectAhead);
-        if (objectAhead && objectAhead.distance < 1 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
@@ -234,7 +238,6 @@ function draw(){
     if (keyIsDown(68)) {
         let objectAhead = sensor.getEntityRightOfUser();
         let noObstacle = true;
-        //console.log(objectAhead);
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
