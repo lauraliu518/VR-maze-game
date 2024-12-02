@@ -49,7 +49,7 @@ let doorZ = 0;
 
 
 function preload(){
-    mapGraphic = loadImage("sources/mazeMap.png");
+    mapGraphic = loadImage("sources/maps/level1.png");
 }
 
 function setup(){
