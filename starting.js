@@ -1,1 +1,40 @@
-// elizabeth's tasks, minimap/dynamic texture?, trees, starting page, lighting?, time of say and timer somewhere, loading page
+// elizabeth's tasks, minimap/dynamic texture?, trees, starting page, lighting?, time of day and timer somewhere, loading page
+// image variables
+let playImg, bg, brick;
+// font variable
+let myfont;
+
+let buffer;
+let canvas;
+
+// game state variable passed in from game play webpage. 1 for playing and 0 for not playing
+let gameState;
+
+let timeTaken = 50.2347;
+
+//p article system array
+let bricks = [];
+
+function preload(){
+    startImg = loadImage("sources/startBtn.png");
+    bg = loadImage("sources/startBg.jpg");
+    myfont = loadFont('sources/fontResource/Silkscreen/Silkscreen-Regular.ttf');
+}
+
+function setup(){
+    //canvas and buffer setup
+    buffer = createGraphics(window.innerWidth, window.innerHeight);
+    canvas = createCanvas(window.innerWidth, window.innerHeight);
+    //process graphics and other resources
+    textFont(myfont);
+    playImg.resize(width/4, height/7);
+    bg.resize(width, height);
+    brick.resize(20, 20);
+
+    
+    if(window.localStorage.getItem("gameState") == null){
+    }else{
+        winState = window.localStorage.getItem("gameState");
+    }
+    
+}

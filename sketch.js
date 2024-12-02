@@ -130,7 +130,8 @@ function setup(){
         }
     }
 
-    let mini = new AFrameP5.plane({
+    // create a mini map in the top right corner of the game
+    let mini = new AFrameP5.Plane({
         width: 1, height: 1,
         asset: texture1,
         side: "double",
@@ -138,7 +139,9 @@ function setup(){
         dynamicTextureWidth: 256,
         dynamicTextureHeight: 256,
     });
-    world.addToHUD(mini, 0.8, 0, -3);
+    // world.addToHUD(mini, 4.2, 1.8, -3);
+    world.addToHUD(mini, 2, 1.8, -3);
+
 
     weapon = new Weapon();
 }
@@ -149,6 +152,7 @@ function draw(){
     const userRotation = world.getUserRotation();
 
     buffer1.background(128);
+    buffer1.image(mazeMap, 0, 0, 256, 256);
 
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
