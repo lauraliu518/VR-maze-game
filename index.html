@@ -26,23 +26,6 @@
             padding: 0;
             margin: 0;
         }
-
-        #hud {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 200px; 
-        height: 200px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border: 2px solid white;
-        z-index: 1000;
-        pointer-events: none;
-        }
-
-        #hudCanvas {
-        width: 100%;
-        height: 100%;
-        }
     </style>
 </head>
 
@@ -67,10 +50,6 @@
             <a-asset-item id = "enemy_model" src = "sources/Creeper.glb"></a-asset-item>
             <a-asset-item id = "weapon_model" src = "sources/heavy-metal_sword/scene.gltf"></a-asset-item>
         </a-assets>
-    
-        <div id="hud">
-            <canvas id="hudCanvas" width="200" height="200"></canvas>
-        </div>
 
     </a-scene>
 

@@ -30,7 +30,8 @@ let enemies = [];
 let initialEnemyCount = 2;
 
 //hud variables
-let hudCanvas;
+let buffer1;
+let texture1;
 
 //localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
 let win = 0;
@@ -129,8 +130,15 @@ function setup(){
         }
     }
 
-    let canvasElement = document.getElementById('hudCanvas');
-    hudCanvas = canvasElement.getContext('2d');
+    let mini = new AFrameP5.plane({
+        width: 1, height: 1,
+        asset: texture1,
+        side: "double",
+        dynamicTexture: true,
+        dynamicTextureWidth: 256,
+        dynamicTextureHeight: 256,
+    });
+    world.addToHUD(mini, 0.8, 0, -3);
 
     weapon = new Weapon();
 }
@@ -139,6 +147,14 @@ function draw(){
 
     const userPosition = world.getUserPosition();
     const userRotation = world.getUserRotation();
+
+    buffer1.background(128);
+
+    let miniMapX = map(userPosition.x, -50, 50, 0, 256);
+    let miniMapY = map(userPosition.z, -50, 50, 0, 256);
+
+    buffer1.fill(0, 0, 255);
+    buffer1.ellipse(miniMapX, miniMapY, 10, 10);
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
