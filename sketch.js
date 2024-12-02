@@ -42,6 +42,11 @@ let win = 0;
 //weapon
 let weapon;
 
+//exit door variables
+let doorX = 47;
+let doorY = 1;
+let doorZ = 0;
+
 
 function preload(){
     mapGraphic = loadImage("sources/mazeMap.png");
@@ -55,7 +60,7 @@ function setup(){
     //disable flying
     world.setFlying(false);
     //disable WASD navigation
-   world.camera.cameraEl.removeAttribute('wasd-controls');
+    world.camera.cameraEl.removeAttribute('wasd-controls');
 
     //HUD
     createFullScreenHud();
@@ -67,6 +72,25 @@ function setup(){
     userZ = 99 + conversionOffset;
     //set initial user position
     world.setUserPosition(userX, userY, userZ);
+
+    //set exit door position
+    doorX = doorX + conversionOffset;
+    doorZ = doorZ + conversionOffset;
+    //create exit door
+    let exitDoor = new AFrameP5.Box({
+        x: doorX,
+        y: doorY,
+        z: doorZ,
+        width: 1,
+        height: 10,
+        depth: 1,
+        red:255, green: 255, blue: 0,
+        asset: "door",
+        clickFunction: function (theBox) {
+            win = 2;
+        },
+    })
+    world.add(exitDoor);
 
     //create grass ground plane
     let grass = new AFrameP5.Plane({
@@ -108,21 +132,7 @@ function setup(){
         new Coin(coinType, x, z);
     }
 
-    //waiting to be replaced into real exit door objects later, using a box for placeholder
-    let exitDoor = new AFrameP5.Box({
-        x: 2,
-        y: 2,
-        z: 40,
-        width: 1,
-        height: 10,
-        depth: 1,
-        red:255, green: 255, blue: 0,
-        asset: "door",
-        clickFunction: function (theBox) {
-            win = 2;
-        },
-    })
-    world.add(exitDoor);
+    
 
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
@@ -176,7 +186,6 @@ function draw(){
     console.log(win);
     //update winning state
     if(win != 0){
-        
         //redirect to ending webpage
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
