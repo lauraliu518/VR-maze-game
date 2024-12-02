@@ -11,6 +11,17 @@ class Coin {
 
         this.createCoin();
     }
+    slowUser() {
+        // Slow down the user's speed
+        const reducedSpeed = 0.05; // Reduce speed by 50%
+
+        world.setUserSpeed(reducedSpeed); // Set reduced speed
+
+        // Restore the original speed after 500ms
+        setTimeout(() => {
+            world.setUserSpeed(0.1); // Reset to original speed
+        }, 2000);
+    }
 
     createCoin() {
         const coinInstance = this; // Store a reference to the current Coin instance
@@ -43,7 +54,7 @@ class Coin {
                     const myPosition = coins.getPosition();
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z)+ dist(userPosition.x, userPosition.y, myPosition.x, myPosition.y)< 4) {
                         coinInstance.collected = true;
-
+                        coinInstance.slowUser();
                         
                         // coinInstance.buffer.clear();
                         // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
