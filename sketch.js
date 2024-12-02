@@ -26,10 +26,6 @@ let wallHeight = 5;
 //wall block width and depth
 let blockSize = 1;
 
-//enemy variables
-let enemies = [];
-let initialEnemyCount = 2;
-
 //follower variables
 let followers = [];
 
@@ -127,7 +123,7 @@ function setup(){
     world.add(sky);
 
     //create walls based on wall map
-    mapWalls(level);
+    mapWalls();
 
     //enemies
     //adding enemies
@@ -191,10 +187,6 @@ function draw(){
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
-    }
-
-    for(let i = 0; i < initialEnemyCount; i++){
-        enemies[i].move();
     }
     console.log(win);
     //update winning state
