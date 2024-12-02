@@ -32,14 +32,7 @@ function setup(){
         winState = window.localStorage.getItem("gameState");
     }
     
-    window.localStorage.setItem("level", level);
+
 
 }
 
-function draw(){
-    //window.localStorage.setItem("level", 3);
-    if(mouseIsPressed){
-        console.log("hello");
-        window.location.href = "index.html";
-    }
-}
