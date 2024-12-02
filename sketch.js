@@ -1,5 +1,3 @@
-console.log("SHETCH");
-
 // world variable referencing to A-Frame world
 let world;
 
@@ -50,10 +48,10 @@ function setup(){
     //disable flying
     //world.setFlying(false);
     // disable WASD navigation
-   //world.camera.cameraEl.removeAttribute('wasd-controls');
+    //world.camera.cameraEl.removeAttribute('wasd-controls');
 
-   //HUD
-   createFullScreenHud();
+    //HUD
+    createFullScreenHud();
     
     //set conversion offset and set initial user position value
     conversionOffset = -(worldSize/2);
@@ -142,8 +140,6 @@ function draw(){
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }
-
-
 
     //Laura: This entire part below is for movements and it is still in progress, please do not touch it for now!! Thanks!!
     let objectAhead = sensor.getEntityInFrontOfUser();

@@ -1,6 +1,3 @@
-console.log("hello2");
-
-
 let hudBuffer, hudTexture, hudPlane;
 
 function createFullScreenHud() {
@@ -30,4 +27,3 @@ function updateHudColor(r, g, b) {
     world.addToHUD(hudPlane);
     
 }
-    
