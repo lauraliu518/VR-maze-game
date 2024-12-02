@@ -127,7 +127,7 @@ function setup(){
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
-        followers.push(new Follower(x,1,z,0.01));
+        followers.push(new Follower(x,1.5,z,0.01));
     }
 
     buffer1 = createGraphics(256, 256);
@@ -162,7 +162,7 @@ function draw(){
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
 
-    console.log(miniMapX, miniMapY);
+    //console.log(miniMapX, miniMapY);
     buffer1.fill(0, 0, 255);
     buffer1.ellipse(miniMapX, miniMapY, 20, 20);
 
@@ -233,7 +233,7 @@ function draw(){
         }
     }
 
-    for(let i = 0; i < 100; i++){
+    for(let i = 0; i < 1; i++){
         if(followers[i].caughtUser){
             win = 1; //lose the game
         }
