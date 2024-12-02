@@ -34,6 +34,9 @@
     <!-- container to hold our VR scene - make sure to give this element an ID of 'VRScene' -->
     <a-scene id="VRScene">
         <a-assets id="VRAssets">
+            <!-- map of the maze -->
+            <img id = "mapPic" src = "sources/mazemap.png">
+
             <!-- ground texture -->
             <img id = "grassPic" src = "sources/grassTexture/grass.jpg">
 
@@ -46,10 +49,18 @@
 
             <img id="coinImg" src="sources/coin.png"></img> 
 
+            <!-- door -->
+            <img id = "door" src="sources/door/scene.gltf">
+
             <!-- GLTF Enemy Minecraft Creeper Model -->
             <!-- replace with enemy model later -->
             <a-asset-item id = "enemy_model" src = "sources/Creeper.glb"></a-asset-item>
             <a-asset-item id = "weapon_model" src = "sources/heavy-metal_sword/scene.gltf"></a-asset-item>
+
+            <!-- tree obj -->
+            <a-asset-item id= "trees" src = "sources/tree.obj"></a-asset-item>
+            <a-asset-item id= "trees_mtl" src = "sources/tree.mtl"></a-asset-item>
+
         </a-assets>
 
     </a-scene>

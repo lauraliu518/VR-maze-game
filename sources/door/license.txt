@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dungeon Door
+* source:	https://sketchfab.com/3d-models/dungeon-door-0507ef6c98664c4a8bc4eeb0f3c68fd9
+* author:	DJMaesen (https://sketchfab.com/bumstrum)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dungeon Door" (https://sketchfab.com/3d-models/dungeon-door-0507ef6c98664c4a8bc4eeb0f3c68fd9) by DJMaesen (https://sketchfab.com/bumstrum) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

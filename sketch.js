@@ -115,6 +115,7 @@ function setup(){
         height: 10,
         depth: 1,
         red:255, green: 255, blue: 0,
+        asset: "door",
         clickFunction: function (theBox) {
             win = 2;
         },
