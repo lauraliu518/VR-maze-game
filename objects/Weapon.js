@@ -29,7 +29,8 @@ class Weapon {
       this.initialRotationX = 90; // Degrees
   
       // Event listener for swinging
-      window.addEventListener('click', () => this.swing());
+
+      //window.addEventListener('click', () => this.swing());
     }
   
     swing() {
@@ -39,6 +40,9 @@ class Weapon {
     }
   
     update(userPosition, userRotation) {
+      if(keyIsDown(32)){
+        this.swing();
+      }
       // Update the container position to match the user position
       this.container.object3D.position.set(userPosition.x, userPosition.y, userPosition.z);
   

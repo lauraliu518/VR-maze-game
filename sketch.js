@@ -25,10 +25,6 @@ let wallHeight = 5;
 //wall block width and depth
 let blockSize = 1;
 
-//enemy variables
-let enemies = [];
-let initialEnemyCount = 2;
-
 //follower variables
 let followers = [];
 
@@ -115,13 +111,7 @@ function setup(){
 
     //create walls based on wall map
     mapWalls();
-
-    //enemies
-    //adding enemies
-    for(let i = 0; i < initialEnemyCount; i++){
-        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
-        enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
-    }
+    //add
 
     //create sensors
     sensor = new Sensor();
@@ -178,10 +168,6 @@ function draw(){
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
-    }
-
-    for(let i = 0; i < initialEnemyCount; i++){
-        enemies[i].move();
     }
     console.log(win);
     //update winning state
