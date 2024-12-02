@@ -15,6 +15,7 @@ let userX, userY, userZ;
 //wall mapping variables
 //wall mapping map
 let mapGraphic;
+let level;
 
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
@@ -43,16 +44,31 @@ let win = 0;
 let weapon;
 
 //exit door variables
-let doorX = 47;
-let doorY = 1;
+let doorX = 48;
+let doorY = 0;
 let doorZ = 0;
+
+let speed = 0.10;
 
 
 function preload(){
-    mapGraphic = loadImage("sources/maps/level1.png");
+    level1 = loadImage("sources/maps/level1.png");
+    level2 = loadImage("sources/maps/level2.png");
+    level3 = loadImage("sources/maps/level3.png");
 }
 
 function setup(){
+    level = window.localStorage.getItem("level");
+    if(level == 1){
+        mapGraphic = level1;
+    }else if(level == 2){
+        mapGraphic = level2;
+    }else if(level == 3){
+        mapGraphic = level3;
+    }else{
+        
+    }
+
     // no canvas needed
     noCanvas();
     // construct A-Frame world
@@ -77,14 +93,11 @@ function setup(){
     doorX = doorX + conversionOffset;
     doorZ = doorZ + conversionOffset;
     //create exit door
-    let exitDoor = new AFrameP5.Box({
+    let exitDoor = new AFrameP5.GLTF({
         x: doorX,
         y: doorY,
         z: doorZ,
-        width: 1,
-        height: 10,
-        depth: 1,
-        red:255, green: 255, blue: 0,
+        rotationY: -90,
         asset: "door",
         clickFunction: function (theBox) {
             win = 2;
@@ -114,7 +127,7 @@ function setup(){
     world.add(sky);
 
     //create walls based on wall map
-    mapWalls();
+    mapWalls(level);
 
     //enemies
     //adding enemies
@@ -202,43 +215,40 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserForward(0.05);
+            world.moveUserForward(speed);
         }
     }
     //if the S key is pressed
     if (keyIsDown(83)) {
-        let objectAhead = sensor.getEntityBehindUsers();
+        let objectAhead = sensor.getEntityBehindUser();
         let noObstacle = true;
-        //console.log(objectAhead);
-        if (objectAhead && objectAhead.distance < 1 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserBackward(0.05);
+            world.moveUserBackward(speed);
         }
     }
     //if the A key is pressed
     if (keyIsDown(65)) {
         let objectAhead = sensor.getEntityLeftOfUser();
         let noObstacle = true;
-        //console.log(objectAhead);
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserLeft(0.05);
+            world.moveUserLeft(speed);
         }
     }
     //if the D key is pressed
     if (keyIsDown(68)) {
         let objectAhead = sensor.getEntityRightOfUser();
         let noObstacle = true;
-        //console.log(objectAhead);
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserRight(0.05);
+            world.moveUserRight(speed);
         }
     }
 
@@ -247,6 +257,7 @@ function draw(){
             win = 1; //lose the game
         }
     }
+
     
 }
 

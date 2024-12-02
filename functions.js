@@ -1,3 +1,4 @@
+
 function mapWalls(){
     //create walls based on wall map
     for(let i = 0; i < worldSize; i++){

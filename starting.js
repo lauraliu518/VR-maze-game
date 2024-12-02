@@ -10,6 +10,8 @@ let canvas;
 // game state variable passed in from game play webpage. 1 for playing and 0 for not playing
 let gameState;
 
+let level = 3;
+
 function preload(){
     startImg = loadImage("sources/startBtn.png");
     bg = loadImage("sources/startBg.jpg");
@@ -30,4 +32,14 @@ function setup(){
         winState = window.localStorage.getItem("gameState");
     }
     
+    window.localStorage.setItem("level", level);
+
+}
+
+function draw(){
+    //window.localStorage.setItem("level", 3);
+    if(mouseIsPressed){
+        console.log("hello");
+        window.location.href = "index.html";
+    }
 }
