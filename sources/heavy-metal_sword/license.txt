@@ -1,0 +1,11 @@
+Model Information:
+* title:	Heavy-Metal Sword
+* source:	https://sketchfab.com/3d-models/heavy-metal-sword-cf96d049a2ce447292f1779a39807a61
+* author:	iceboxX708 (https://sketchfab.com/iceboxX708)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Heavy-Metal Sword" (https://sketchfab.com/3d-models/heavy-metal-sword-cf96d049a2ce447292f1779a39807a61) by iceboxX708 (https://sketchfab.com/iceboxX708) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

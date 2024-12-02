@@ -18,6 +18,7 @@ function createFullScreenHud() {
         height: 2,
         width: 2,
         side: "double",
+        opacity: 0.5
     });
 }
 

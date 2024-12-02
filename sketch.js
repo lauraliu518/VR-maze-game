@@ -35,6 +35,10 @@ let hudCanvas;
 //localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
 let win = 0;
 
+//weapon
+let weapon;
+
+
 function preload(){
     map = loadImage("sources/mazeMap.png");
     mazeMap = loadImage("sources/mazeMap.png");
@@ -45,10 +49,10 @@ function setup(){
     noCanvas();
     // construct A-Frame world
     world = new AFrameP5.World('VRScene');
-    //disable flying
-    //world.setFlying(false);
-    // disable WASD navigation
-    //world.camera.cameraEl.removeAttribute('wasd-controls');
+//     //disable flying
+//     world.setFlying(false);
+//     //disable WASD navigation
+//    world.camera.cameraEl.removeAttribute('wasd-controls');
 
     //HUD
     createFullScreenHud();
@@ -88,7 +92,7 @@ function setup(){
     //enemies
     //adding enemies
     for(let i = 0; i < initialEnemyCount; i++){
-        //syntax: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
+        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
         enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
     }
 
@@ -127,9 +131,19 @@ function setup(){
 
     let canvasElement = document.getElementById('hudCanvas');
     hudCanvas = canvasElement.getContext('2d');
+
+    weapon = new Weapon();
 }
 
 function draw(){
+
+    const userPosition = world.getUserPosition();
+    const userRotation = world.getUserRotation();
+
+    if (weapon) {
+        weapon.update(userPosition,userRotation);
+    }
+
     for(let i = 0; i < initialEnemyCount; i++){
         enemies[i].move();
     }
@@ -141,67 +155,56 @@ function draw(){
         window.location.href = "ending.html";
     }
 
-    //Laura: This entire part below is for movements and it is still in progress, please do not touch it for now!! Thanks!!
     let objectAhead = sensor.getEntityInFrontOfUser();
-    let userPos = world.getUserPosition();
-    userX = userPos.x;
-    userZ = userPos.z;
-    //console.log(userX  + "\n" + userY + "\n" + userZ);
+    // let userPos = world.getUserPosition();
+    // userX = userPos.x;
+    // userZ = userPos.z;
+    // //console.log(userX  + "\n" + userY + "\n" + userZ);
     // //if the W key is pressed
     // if (keyIsDown(87)) {
     //     // assume we can move forward
     //     let noObstacle = true;
-    //     //console.log(objectAhead);
+    //     console.log(objectAhead);
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
     //     if (noObstacle) {
-    //         userZ -= 0.05;
-    //         world.setUserPosition(userX, userY, userZ);
+    //         world.moveUserForward(0.01);
     //     }
     // }
     // //if the S key is pressed
     // if (keyIsDown(83)) {
-    //     // assume we can move forward
     //     let noObstacle = true;
     //     //console.log(objectAhead);
-    //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
     //     if (noObstacle) {
-    //         userZ += 0.05;
-    //         world.setUserPosition(userX, userY, userZ);
+    //         world.moveUserBackward(0.05);
     //     }
     // }
     // //if the A key is pressed
     // if (keyIsDown(65)) {
-    //     // assume we can move forward
     //     let noObstacle = true;
     //     //console.log(objectAhead);
-    //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
     //     if (noObstacle) {
-    //         userX -= 0.05;
-    //         world.setUserPosition(userX, userY, userZ);
+    //         world.moveUserLeft(0.05);
     //     }
     // }
     // //if the D key is pressed
     // if (keyIsDown(68)) {
-    //     // assume we can move forward
     //     let noObstacle = true;
     //     //console.log(objectAhead);
     //     // if there is an object, it is close and it is solid, prevent motion
     //     if (objectAhead && objectAhead.distance < 0.01 && objectAhead.object.el.object3D.userData.solid) {
     //         noObstacle = false;
     //     }
-
     //     if (noObstacle) {
-    //         userX += 0.05;
-    //         world.setUserPosition(userX, userY, userZ);
+    //         world.moveUserRight(0.05);
     //     }
     // }
     // moveUserForward
