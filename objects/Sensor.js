@@ -5,6 +5,10 @@ class Sensor{
         this.rayCaster = new THREE.Raycaster();
         this.userPosition = new THREE.Vector3(0, 0, 0);
         this.downVector = new THREE.Vector3(0, -1, 0);
+        this.behindVector = new THREE.Vector3(0, 0, 1);
+        this.leftVector = new THREE.Vector3(-1, 0, 0);
+        this.rightVector = new THREE.Vector3(1, 0, 0);
+
         this.intersects = [];
 
         this.rayCasterFront = new THREE.Raycaster();
@@ -24,9 +28,18 @@ class Sensor{
 
         // reset camera
         if (world.camera.cameraEl && world.camera.cameraEl.object3D && world.camera.cameraEl.object3D.children.length >= 2) {
-
+            let camera = false;
+            for (let child of world.camera.cameraEl.object3D.children) {
+                if (child.type == 'PerspectiveCamera') {
+                    camera = child;
+                    break;
+                }
+            }
+            if (!camera) {
+                return;
+            }
             // cast a ray in front of the user 
-            this.rayCasterFront.setFromCamera(this.cursorPosition, world.camera.cameraEl.object3D.children[1]);
+            this.rayCasterFront.setFromCamera(this.cursorPosition, camera);
             this.intersectsFront = this.rayCasterFront.intersectObjects(world.threeSceneReference.children, true);
 
             // determine which "solid" items are in front of the user
@@ -42,5 +55,77 @@ class Sensor{
             }
             return false;
         }
+    }
+
+    getEntityBehindUser() {
+        // update the user's current position
+        let cp = world.getUserPosition();
+        this.userPosition.x = cp.x;
+        this.userPosition.y = cp.y;
+        this.userPosition.z = cp.z;
+
+        this.rayCaster.set(this.userPosition, this.behindVector);
+        this.intersects = this.rayCaster.intersectObjects(world.threeSceneReference.children, true);
+
+        // determine which "solid" or "stairs" items are below
+        for (let i = 0; i < this.intersects.length; i++) {
+            if (!(this.intersects[i].object.el.object3D.userData.solid || this.intersects[i].object.el.object3D.userData.stairs)) {
+                this.intersects.splice(i, 1);
+                i--;
+            }
+        }
+
+        if (this.intersects.length > 0) {
+            return this.intersects[0];
+        }
+        return false;
+    }
+
+    getEntityLeftOfUser() {
+        // update the user's current position
+        let cp = world.getUserPosition();
+        this.userPosition.x = cp.x;
+        this.userPosition.y = cp.y;
+        this.userPosition.z = cp.z;
+    
+        this.rayCaster.set(this.userPosition, this.leftVector);
+        this.intersects = this.rayCaster.intersectObjects(world.threeSceneReference.children, true);
+    
+        // determine which "solid" or "stairs" items are below
+        for (let i = 0; i < this.intersects.length; i++) {
+            if (!(this.intersects[i].object.el.object3D.userData.solid || this.intersects[i].object.el.object3D.userData.stairs)) {
+                this.intersects.splice(i, 1);
+                i--;
+            }
+        }
+    
+        if (this.intersects.length > 0) {
+            return this.intersects[0];
+        }
+        return false;
+    }
+
+    getEntityRightOfUser() {
+        // update the user's current position
+        let cp = world.getUserPosition();
+        this.userPosition.x = cp.x;
+        this.userPosition.y = cp.y;
+        this.userPosition.z = cp.z;
+    
+        this.rayCaster.set(this.userPosition, this.rightVector);
+        this.intersects = this.rayCaster.intersectObjects(world.threeSceneReference.children, true);
+    
+        // determine which "solid" or "stairs" items are below
+        for (let i = 0; i < this.intersects.length; i++) {
+            if (!(this.intersects[i].object.el.object3D.userData.solid || this.intersects[i].object.el.object3D.userData.stairs)) {
+                this.intersects.splice(i, 1);
+                i--;
+            }
+        }
+    
+        if (this.intersects.length > 0) {
+            return this.intersects[0];
+        }
+        return false;
     }
 }
