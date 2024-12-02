@@ -46,7 +46,7 @@ let doorZ = 0;
 //number of followers -- depends on difficulty
 let numFollower;
 
-let speed;
+let speed = 0.05;
 
 function preload(){
     mapGraphic = loadImage("sources/maps/level1.png");
@@ -203,7 +203,7 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserForward(0.05);
+            world.moveUserForward(speed);
         }
     }
     //if the S key is pressed
@@ -215,7 +215,7 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserBackward(0.05);
+            world.moveUserBackward(speed);
         }
     }
     //if the A key is pressed
@@ -227,7 +227,7 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserLeft(0.05);
+            world.moveUserLeft(speed);
         }
     }
     //if the D key is pressed
@@ -239,7 +239,7 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserRight(0.05);
+            world.moveUserRight(speed);
         }
     }
 

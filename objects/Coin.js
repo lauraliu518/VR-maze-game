@@ -13,14 +13,14 @@ class Coin {
     }
     slowUser() {
         // Slow down the user's speed
-        const reducedSpeed = 0.05; // Reduce speed by 50%
+        const reducedSpeed = 0.01; // Reduce speed by 50%
 
-        world.setUserSpeed(reducedSpeed); // Set reduced speed
+        speed = reducedSpeed; // Set reduced speed
 
         // Restore the original speed after 500ms
         setTimeout(() => {
-            world.setUserSpeed(0.1); // Reset to original speed
-        }, 2000);
+            speed=0.05; // Reset to original speed
+        }, 5000); // 5 sec
     }
 
     createCoin() {
