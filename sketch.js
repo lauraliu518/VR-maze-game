@@ -35,6 +35,10 @@ let hudCanvas;
 //localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
 let win = 0;
 
+//weapon
+let weapon;
+
+
 function preload(){
     map = loadImage("sources/mazeMap.png");
     mazeMap = loadImage("sources/mazeMap.png");
@@ -127,9 +131,19 @@ function setup(){
 
     let canvasElement = document.getElementById('hudCanvas');
     hudCanvas = canvasElement.getContext('2d');
+
+    weapon = new Weapon();
 }
 
 function draw(){
+
+    const userPosition = world.getUserPosition();
+    const userRotation = world.getUserRotation();
+
+    if (weapon) {
+        weapon.update(userPosition,userRotation);
+    }
+
     for(let i = 0; i < initialEnemyCount; i++){
         enemies[i].move();
     }
@@ -140,7 +154,6 @@ function draw(){
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }
-
 
     let objectAhead = sensor.getEntityInFrontOfUser();
     let userPos = world.getUserPosition();
