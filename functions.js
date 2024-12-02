@@ -25,7 +25,7 @@ function mapWalls(){
 }
 
 function checkIfMapPositionIsBlack(x, y){
-    let redTotal = red(map.get(x, y));
+    let redTotal = red(mapGraphic.get(x, y));
     if(redTotal == 0){
         return true;
     }

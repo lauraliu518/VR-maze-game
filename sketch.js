@@ -14,8 +14,8 @@ let userX, userY, userZ;
 
 //wall mapping variables
 //wall mapping map
-let map;
-let mazeMap;
+let mapGraphic;
+
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
 //3D world width and depth
@@ -41,8 +41,7 @@ let weapon;
 
 
 function preload(){
-    map = loadImage("sources/mazeMap.png");
-    mazeMap = loadImage("sources/mazeMap.png");
+    mapGraphic = loadImage("sources/mazeMap.png");
 }
 
 function setup(){
@@ -131,6 +130,10 @@ function setup(){
         }
     }
 
+    buffer1 = createGraphics(256, 256);
+
+    texture1 = world.createDynamicTextureFromCreateGraphics(buffer1);
+
     // create a mini map in the top right corner of the game
     let mini = new AFrameP5.Plane({
         width: 1, height: 1,
@@ -143,7 +146,6 @@ function setup(){
     // world.addToHUD(mini, 4.2, 1.8, -3);
     world.addToHUD(mini, 2, 1.8, -3);
 
-
     weapon = new Weapon();
 }
 
@@ -153,13 +155,14 @@ function draw(){
     const userRotation = world.getUserRotation();
 
     buffer1.background(128);
-    buffer1.image(mazeMap, 0, 0, 256, 256);
+    buffer1.image(mapGraphic, 0, 0, 256, 256);
 
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
 
+    console.log(miniMapX, miniMapY);
     buffer1.fill(0, 0, 255);
-    buffer1.ellipse(miniMapX, miniMapY, 10, 10);
+    buffer1.ellipse(miniMapX, miniMapY, 20, 20);
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
