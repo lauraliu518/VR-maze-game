@@ -26,7 +26,7 @@ function setup() {
   textFont(myFont);
   playIcon.resize(width / 8, height / 8);
   hoverIcon.resize(width / 8, height / 8);
-  titleBack.resize(width / 1.5, height / 6);
+  titleBack.resize(width / 2, height / 4);
 }
 
 function draw() {
@@ -37,18 +37,18 @@ function draw() {
   image(titleBack, width / 2 - titleBack.width / 2, height / 4.5);
   fill(255);
   textAlign(CENTER, CENTER);
-  textSize(75);
-  text("Maze Runner", width / 2, height / 5 + titleBack.height / 2);
+  textSize(60);
+  text("Survival Maze ", width / 2, height / 5 + titleBack.height / 2);
 
   // make play button
   let playX = width / 2 - playIcon.width / 2;
   let playY = height / 2 - playIcon.height / 2;
   if (mouseX > playX && mouseX < playX + playIcon.width && mouseY > playY && mouseY < playY + playIcon.height) {
     // hover state
-    image(hoverIcon, playX, playY);
+    image(hoverIcon, playX, playY + 30);
   } else {
     // original state
-    image(playIcon, playX, playY);
+    image(playIcon, playX, playY + 50);
   }
 }
 

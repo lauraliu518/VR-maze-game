@@ -1,5 +1,5 @@
 // level variables
-let level1, level2, level3, levelBg, bg;
+let level1, level2, level3, bg, titleBack;
 
 // font variable
 let myFont;
@@ -8,61 +8,65 @@ let myFont;
 let buttonSize, spacing, buttons;
 
 function preload() {
-  level1 = loadImage("sources/startingGraphics/level1.svg");
-  level2 = loadImage("sources/startingGraphics/level2.svg");
-  level3 = loadImage("sources/startingGraphics/level3.svg");
-  levelBg = loadImage("sources/startingGraphics/lockedLevel.svg");
+  level1 = loadImage("sources/startingGraphics/button1.png");
+  level2 = loadImage("sources/startingGraphics/button2.png");
+  level3 = loadImage("sources/startingGraphics/button3.png");
   bg = loadImage("sources/startBg.jpg");
+  titleBack = loadImage("sources/startingGraphics/Back.svg"); 
   myFont = loadFont("sources/startingGraphics/Bungee-Shade.otf");
 }
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
-  // set button size and spacing
-  buttonSize = width / 20;
-  spacing = buttonSize / 5;
+  titleBack.resize(width / 2.5, height / 4);
 
-  // find the buttons position
+
+  // Button size and spacing
+  buttonSize = 100; 
+  spacing = 100;
+
+  // Calculate starting positions for horizontal layout
+  let totalWidth = 3 * buttonSize + 2 * spacing; 
+  let startX = (width - totalWidth) / 2; 
+  let yPosition = height / 2 - buttonSize / 2; 
+
+  // Initialize buttons with their positions
   buttons = [
-    { x: width / 3 - buttonSize / 2, y: height / 2 - buttonSize / 2, image: level1 },
-    { x: width / 2 - buttonSize / 2, y: height / 2 - buttonSize / 2, image: level2 },
-    { x: 2 * width / 3 - buttonSize / 2, y: height / 2 - buttonSize / 2, image: level3 }
+    { x: startX, y: yPosition, img: level1 },
+    { x: startX + buttonSize + spacing, y: yPosition, img: level2 },
+    { x: startX + 2 * (buttonSize + spacing), y: yPosition, img: level3 },
   ];
-
-  levelBg.resize(buttonSize, buttonSize);
-  buttons.forEach(button => button.image.resize(buttonSize, buttonSize));
-  textFont(myFont);
 }
 
 function draw() {
   image(bg, 0, 0, width, height);
-  fill(255);
-  textAlign(CENTER, CENTER);
-  textSize(50);
-  text("Select Your Difficulty", width / 2, height / 5);
 
-  // put in buttons and the level
+  // title
+  image(titleBack, width / 2 - titleBack.width / 2, height / 10);
+  textAlign(CENTER, CENTER);
+  textFont(myFont);
+  textSize(50);
+  fill(255);
+  text("Select Your", width / 2, height / 5 - 30); 
+  text("Difficulty", width / 2, height / 5 + 30);
+
+  // make the buttons
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-    image(levelBg, button.x, button.y); 
-    image(button.image, button.x, button.y);
-
-    // hovering over the selecting button
-    if (mouseX > button.x && mouseX < button.x + buttonSize && mouseY > button.y && mouseY < button.y + buttonSize
-    ) {
-      stroke(255);
-      strokeWeight(4);
-      noFill();
-      rect(button.x, button.y, buttonSize, buttonSize);
-    }
+    image(button.img, button.x, button.y, buttonSize, buttonSize);
   }
 }
 
 function mousePressed() {
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-    if (mouseX > button.x && mouseX < button.x + buttonSize && mouseY > button.y && mouseY < button.y + buttonSize) {
+    if (
+      mouseX > button.x &&
+      mouseX < button.x + buttonSize &&
+      mouseY > button.y &&
+      mouseY < button.y + buttonSize
+    ) {
       // redirect to another page
       if (i === 0) {
         startLevel1();
