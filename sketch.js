@@ -60,16 +60,13 @@ function preload(){
 
 function setup(){
     // Assign the corresponding map based on the 'level' parameter
-    if(new URLSearchParams(window.location.search).get('level') == 1){
+    if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
-    } else if(new URLSearchParams(window.location.search).get('level') == 2){
+    } else if(window.localStorage.getItem('level') == 2){
         mapGraphic = level2;
-    } else if(new URLSearchParams(window.location.search).get('level') == 3){
+    } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
-    } else {
-    console.error("invalid level");
-    return;
-    }
+    };
 
     // no canvas needed
     noCanvas();
@@ -151,8 +148,6 @@ function setup(){
         let z = random(-48, 48);
         new Coin(coinType, x, z);
     }
-
-    
 
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
