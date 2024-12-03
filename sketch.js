@@ -135,10 +135,10 @@ function setup(){
         enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
     }
 
-    // // adding random trees into the platform
-    // for(let i = 0; i < 20; i++){
-    //     trees.push(new Tree(random(-50, 50), 0, random(50, 100)));
-    // }
+    // adding random trees into the platform
+    for(let i = 0; i < 20; i++){
+        trees.push(new Tree(random(-50, 50), 0, random(50, 100)));
+    }
 
     //create sensors
     sensor = new Sensor();
