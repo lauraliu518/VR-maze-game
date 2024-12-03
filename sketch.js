@@ -59,7 +59,7 @@ function preload(){
 }
 
 function setup(){
-    // Assign the corresponding map based on the 'level' parameter
+    // assign the corresponding map based on the 'level' parameter
     if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
     } else if(window.localStorage.getItem('level') == 2){
