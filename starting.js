@@ -68,8 +68,5 @@ function mousePressed() {
     window.location.href = "levels.html";
   }
 }
-    
-
-
 }
 
