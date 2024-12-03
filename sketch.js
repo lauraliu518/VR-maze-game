@@ -32,12 +32,18 @@ let initialEnemyCount = 2;
 //follower variables
 let followers = [];
 
+//tree variables
+let trees;
+
 //hud variables
 let buffer1;
 let texture1;
 
 //localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
 let win = 0;
+
+// localStorage variables for starting the game. game state variable: 1 for playing, 0 for not playing
+let game = 0;
 
 //weapon
 let weapon;
@@ -99,6 +105,11 @@ function setup(){
         enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
     }
 
+    // // adding random trees into the platform
+    // for(let i = 0; i < 20; i++){
+    //     trees.push(new Tree(random(-50, 50), 0, random(50, 100)));
+    // }
+
     //create sensors
     sensor = new Sensor();
     for (let i = 0; i < 100; i++) {
@@ -144,10 +155,9 @@ function setup(){
         dynamicTextureHeight: 256,
     });
     // world.addToHUD(mini, 4.2, 1.8, -3);
-    world.addToHUD(mini, 2, 1.8, -3);
+    world.addToHUD(mini, 4, 1.8, -3);
 
     weapon = new Weapon();
-
 
 }
 
@@ -180,6 +190,13 @@ function draw(){
         //redirect to ending webpage
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
+    }
+
+    if(game != 0){
+        
+        //redirect to ending webpage
+        window.localStorage.setItem("gameState", game);
+        window.location.href = "index.html";
     }
 
     //if the W key is pressed
