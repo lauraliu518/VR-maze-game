@@ -45,46 +45,40 @@ function draw() {
   textAlign(CENTER, CENTER);
   textFont(myFont);
   textSize(50);
-  fill(255);
+  fill(255,255,102);
+  noStroke();
   text("Select Your", width / 2, height / 5 - 30); 
   text("Difficulty", width / 2, height / 5 + 30);
 
   // make the buttons
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-    image(button.img, button.x, button.y, buttonSize, buttonSize);
+    if (mouseX > button.x && mouseX < button.x + buttonSize && mouseY > button.y && mouseY < button.y + buttonSize) {
+        // hover over the button
+        stroke(154, 247, 100);
+        strokeWeight(15);
+        noFill();
+        rect(button.x, button.y, buttonSize, buttonSize, 20);
+    }
+        image(button.img, button.x, button.y, buttonSize, buttonSize);
   }
 }
 
 function mousePressed() {
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-    if (
-      mouseX > button.x &&
-      mouseX < button.x + buttonSize &&
-      mouseY > button.y &&
-      mouseY < button.y + buttonSize
-    ) {
-      // redirect to another page
-      if (i === 0) {
-        startLevel1();
-      } else if (i === 1) {
-        startLevel2();
-      } else if (i === 2) {
-        startLevel3();
-      }
+    if (mouseX > button.x && mouseX < button.x + buttonSize && mouseY > button.y && mouseY < button.y + buttonSize) {
+        if (i === 0) {
+            startLevel(1);
+        } else if (i === 1) {
+            startLevel(2);
+        } else if (i === 2) {
+            startLevel(3);
+        }
     }
   }
 }
 
-function startLevel1() {
-  window.location.href = "level1.html";
-}
-
-function startLevel2() {
-  window.location.href = "level2.html";
-}
-
-function startLevel3() {
-  window.location.href = "level3.html";
+function startLevel(levelNumber) {
+    window.location.href = `level${levelNumber}.html?level=${levelNumber}`;
 }

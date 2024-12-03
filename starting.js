@@ -35,9 +35,10 @@ function draw() {
 
   // draw title background and text
   image(titleBack, width / 2 - titleBack.width / 2, height / 4.5);
-  fill(255);
+  fill(255,255,102);
   textAlign(CENTER, CENTER);
   textSize(60);
+  noStroke();
   text("Survival Maze ", width / 2, height / 5 + titleBack.height / 2);
 
   // make play button
@@ -45,6 +46,11 @@ function draw() {
   let playY = height / 2 - playIcon.height / 2;
   if (mouseX > playX && mouseX < playX + playIcon.width && mouseY > playY && mouseY < playY + playIcon.height) {
     // hover state
+    stroke(154, 247, 100);
+    strokeWeight(10);
+    noFill();
+    rect(playX, playY + 30, hoverIcon.width, hoverIcon.height, 20);
+
     image(hoverIcon, playX, playY + 30);
   } else {
     // original state

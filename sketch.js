@@ -59,15 +59,16 @@ function preload(){
 }
 
 function setup(){
-    level = window.localStorage.getItem("level");
-    if(level == 1){
+    // Assign the corresponding map based on the 'level' parameter
+    if(new URLSearchParams(window.location.search).get('level') == 1){
         mapGraphic = level1;
-    }else if(level == 2){
+    } else if(new URLSearchParams(window.location.search).get('level') == 2){
         mapGraphic = level2;
-    }else if(level == 3){
+    } else if(new URLSearchParams(window.location.search).get('level') == 3){
         mapGraphic = level3;
-    }else{
-        
+    } else {
+    console.error("invalid level");
+    return;
     }
 
     // no canvas needed
@@ -267,6 +268,3 @@ function draw(){
     }
     
 }
-
-// world.getuserposition
-// map function in the minimap
