@@ -21,21 +21,19 @@ function setup() {
 
   titleBack.resize(width / 2.5, height / 4);
 
-
-  // Button size and spacing
+  // button size and spacing
   buttonSize = 100; 
   spacing = 100;
 
-  // Calculate starting positions for horizontal layout
   let totalWidth = 3 * buttonSize + 2 * spacing; 
   let startX = (width - totalWidth) / 2; 
   let yPosition = height / 2 - buttonSize / 2; 
 
-  // Initialize buttons with their positions
+  // put buttons with their positions
   buttons = [
-    { x: startX, y: yPosition, img: level1 },
-    { x: startX + buttonSize + spacing, y: yPosition, img: level2 },
-    { x: startX + 2 * (buttonSize + spacing), y: yPosition, img: level3 },
+    {x: startX, y: yPosition, img: level1},
+    {x: startX + buttonSize + spacing, y: yPosition, img: level2},
+    {x: startX + 2 * (buttonSize + spacing), y: yPosition, img: level3},
   ];
 }
 
