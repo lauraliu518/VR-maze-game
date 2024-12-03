@@ -11,6 +11,17 @@ class Coin {
 
         this.createCoin();
     }
+    slowUser() {
+        // Slow down the user's speed
+        const reducedSpeed = 0.01; // Reduce speed by 50%
+
+        speed = reducedSpeed; // Set reduced speed
+
+        // Restore the original speed after 500ms
+        setTimeout(() => {
+            speed=0.05; // Reset to original speed
+        }, 5000); // 5 sec
+    }
 
     createCoin() {
         const coinInstance = this; // Store a reference to the current Coin instance

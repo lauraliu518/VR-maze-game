@@ -15,6 +15,7 @@ let userX, userY, userZ;
 //wall mapping variables
 //wall mapping map
 let mapGraphic;
+let level;
 
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
@@ -24,10 +25,6 @@ let worldSize = 100;
 let wallHeight = 5;
 //wall block width and depth
 let blockSize = 1;
-
-//enemy variables
-let enemies = [];
-let initialEnemyCount = 2;
 
 //follower variables
 let followers = [];
@@ -48,12 +45,31 @@ let game = 0;
 //weapon
 let weapon;
 
+//exit door variables
+let doorX = 48;
+let doorY = 0;
+let doorZ = 0;
+
+let speed = 0.05;
 
 function preload(){
-    mapGraphic = loadImage("sources/mazeMap.png");
+    level1 = loadImage("sources/maps/level1.png");
+    level2 = loadImage("sources/maps/level2.png");
+    level3 = loadImage("sources/maps/level3.png");
 }
 
 function setup(){
+    level = window.localStorage.getItem("level");
+    if(level == 1){
+        mapGraphic = level1;
+    }else if(level == 2){
+        mapGraphic = level2;
+    }else if(level == 3){
+        mapGraphic = level3;
+    }else{
+        
+    }
+
     // no canvas needed
     noCanvas();
     // construct A-Frame world
@@ -61,7 +77,7 @@ function setup(){
     //disable flying
     world.setFlying(false);
     //disable WASD navigation
-   world.camera.cameraEl.removeAttribute('wasd-controls');
+    world.camera.cameraEl.removeAttribute('wasd-controls');
 
     //HUD
     createFullScreenHud();
@@ -73,6 +89,22 @@ function setup(){
     userZ = 99 + conversionOffset;
     //set initial user position
     world.setUserPosition(userX, userY, userZ);
+
+    //set exit door position
+    doorX = doorX + conversionOffset;
+    doorZ = doorZ + conversionOffset;
+    //create exit door
+    let exitDoor = new AFrameP5.GLTF({
+        x: doorX,
+        y: doorY,
+        z: doorZ,
+        rotationY: -90,
+        asset: "door",
+        clickFunction: function (theBox) {
+            win = 2;
+        },
+    })
+    world.add(exitDoor);
 
     //create grass ground plane
     let grass = new AFrameP5.Plane({
@@ -119,26 +151,12 @@ function setup(){
         new Coin(coinType, x, z);
     }
 
-    //waiting to be replaced into real exit door objects later, using a box for placeholder
-    let exitDoor = new AFrameP5.Box({
-        x: 2,
-        y: 2,
-        z: 40,
-        width: 1,
-        height: 10,
-        depth: 1,
-        red:255, green: 255, blue: 0,
-        asset: "door",
-        clickFunction: function (theBox) {
-            win = 2;
-        },
-    })
-    world.add(exitDoor);
+    
 
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
-        followers.push(new Follower(x,1,z,0.01));
+        followers.push(new Follower(x,1.5,z,0.01));
     }
 
     buffer1 = createGraphics(256, 256);
@@ -172,21 +190,16 @@ function draw(){
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
 
-    console.log(miniMapX, miniMapY);
+    //console.log(miniMapX, miniMapY);
     buffer1.fill(0, 0, 255);
     buffer1.ellipse(miniMapX, miniMapY, 20, 20);
 
     if (weapon) {
         weapon.update(userPosition,userRotation);
     }
-
-    for(let i = 0; i < initialEnemyCount; i++){
-        enemies[i].move();
-    }
     console.log(win);
     //update winning state
     if(win != 0){
-        
         //redirect to ending webpage
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
@@ -210,19 +223,18 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserForward(0.05);
+            world.moveUserForward(speed);
         }
     }
     //if the S key is pressed
     if (keyIsDown(83)) {
-        let objectAhead = sensor.getEntityBehindUsers();
+        let objectAhead = sensor.getEntityBehindUser();
         let noObstacle = true;
-        //console.log(objectAhead);
-        if (objectAhead && objectAhead.distance < 1 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserBackward(0.05);
+            world.moveUserBackward(speed);
         }
     }
     //if the A key is pressed
@@ -234,23 +246,21 @@ function draw(){
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserLeft(0.05);
+            world.moveUserLeft(speed);
         }
     }
     //if the D key is pressed
     if (keyIsDown(68)) {
         let objectAhead = sensor.getEntityRightOfUser();
         let noObstacle = true;
-        //console.log(objectAhead);
         if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
-            world.moveUserRight(0.05);
+            world.moveUserRight(speed);
         }
     }
-
-    for(let i = 0; i < 100; i++){
+    for(let i = 0; i < 1; i++){
         if(followers[i].caughtUser){
             win = 1; //lose the game
         }

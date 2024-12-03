@@ -15,7 +15,6 @@ function preload() {
   bg = loadImage("sources/startBg.jpg"); 
   myFont = loadFont("sources/startingGraphics/Bungee-Shade.otf"); 
   titleBack = loadImage("sources/startingGraphics/Back.svg"); 
-}
 
 function setup() {
   // canvas and buffer setup
@@ -69,3 +68,8 @@ function mousePressed() {
     window.location.href = "levels.html";
   }
 }
+    
+
+
+}
+

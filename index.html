@@ -11,7 +11,6 @@
 
 
     <!-- p5 Sketch -->
-    <script src="objects/Enemy.js"></script>
     <script src="objects/Sensor.js"></script>
     <script src="functions.js"></script>
     <script src="objects/Coin.js"></script>
@@ -19,8 +18,7 @@
     <script src="objects/Trees.js"></script>
     <script src="FullScreenHud.js"></script>
     <script src="sketch.js"></script>
-
-    <script src="Weapon.js"></script>
+    <script src="objects/Weapon.js"></script>
     <!-- custom styles -->
     <style>
         body {
@@ -36,7 +34,9 @@
     <a-scene id="VRScene">
         <a-assets id="VRAssets">
             <!-- map of the maze -->
-            <img id = "mapPic" src = "sources/mazemap.png">
+            <img id = "level1" src = "sources/maps/level1.png">
+            <img id = "level2" src = "sources/maps/level2.png">
+            <img id = "level3" src = "sources/maps/level3.png">
 
             <!-- ground texture -->
             <img id = "grassPic" src = "sources/grassTexture/grass.jpg">
@@ -51,7 +51,7 @@
             <img id="coinImg" src="sources/coin.png"></img> 
 
             <!-- door -->
-            <img id = "door" src="sources/door/scene.gltf">
+            <a-asset-item id = "door" src="sources/door/scene.gltf"></a-asset-item>
 
             <!-- GLTF Enemy Minecraft Creeper Model -->
             <!-- replace with enemy model later -->
