@@ -1,12 +1,12 @@
 class Tree {
     constructor(
-        world, 
+        // world, 
         x, y, z,
         scale = 8,
         rotationX = 180,
         asset = 'trees',
         mtl = 'tree_mtl') {
-        this.tree = new AFrameP5AR.OBJ({
+        this.tree = new AFrameP5.OBJ({
           asset: asset,        
           mtl: mtl,            
           x: x,                

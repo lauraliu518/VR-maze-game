@@ -30,7 +30,7 @@ let blockSize = 1;
 let followers = [];
 
 //tree variables
-let trees;
+let trees = [];
 
 //hud variables
 let buffer1;
@@ -50,7 +50,7 @@ let doorX = 48;
 let doorY = 0;
 let doorZ = 0;
 
-let speed = 0.05;
+let speed = 0.10;
 
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
@@ -73,7 +73,7 @@ function setup(){
     // construct A-Frame world
     world = new AFrameP5.World('VRScene');
     //disable flying
-    world.setFlying(false);
+    //world.setFlying(false);
     //disable WASD navigation
     world.camera.cameraEl.removeAttribute('wasd-controls');
 
@@ -128,12 +128,12 @@ function setup(){
     //create walls based on wall map
     mapWalls();
 
-    //enemies
-    //adding enemies
-    for(let i = 0; i < initialEnemyCount; i++){
-        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
-        enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
-    }
+    // //enemies
+    // //adding enemies
+    // for(let i = 0; i < initialEnemyCount; i++){
+    //     //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
+    //     enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
+    // }
 
     // adding random trees into the platform
     for(let i = 0; i < 20; i++){
@@ -161,15 +161,15 @@ function setup(){
 
     // create a mini map in the top right corner of the game
     let mini = new AFrameP5.Plane({
-        width: 1, height: 1,
+        width: 0.15, height: 0.15,
         asset: texture1,
         side: "double",
         dynamicTexture: true,
-        dynamicTextureWidth: 256,
-        dynamicTextureHeight: 256,
+        dynamicTextureWidth: 2,
+        dynamicTextureHeight: 2,
     });
-    // world.addToHUD(mini, 4.2, 1.8, -3);
-    world.addToHUD(mini, 4, 1.8, -3);
+    //world.addToHUD(mini, 3, 1.8, -3);
+    world.addToHUD(mini, 0.5, 0.3, -0.5);
 
     weapon = new Weapon();
 
@@ -193,7 +193,7 @@ function draw(){
     if (weapon) {
         weapon.update(userPosition,userRotation);
     }
-    console.log(win);
+    //console.log(win);
     //update winning state
     if(win != 0){
         //redirect to ending webpage
@@ -201,12 +201,12 @@ function draw(){
         window.location.href = "ending.html";
     }
 
-    if(game != 0){
+    // if(game != 0){
         
-        //redirect to ending webpage
-        window.localStorage.setItem("gameState", game);
-        window.location.href = "gameplay.html";
-    }
+    //     //redirect to ending webpage
+    //     window.localStorage.setItem("gameState", game);
+    //     window.location.href = "gameplay.html";
+    // }
 
     //if the W key is pressed
     if (keyIsDown(87)) {
