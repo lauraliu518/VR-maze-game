@@ -52,6 +52,10 @@ let doorZ = 0;
 
 let speed = 0.10;
 
+//inventory variables
+let inventory, inventoryBuffer, inventoryTexture;
+
+
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
@@ -172,6 +176,20 @@ function setup(){
     world.addToHUD(mini, 0.5, 0.3, -0.5);
 
     weapon = new Weapon();
+
+
+    inventoryBuffer = createGraphics(256, 32);
+    inventoryBuffer.background(128, 0, 0);
+    inventoryTexture = world.createDynamicTextureFromCreateGraphics(inventoryBuffer);
+    let inventory = new AFrameP5.Plane({
+        width: 0.8, height: 0.1,
+        asset: inventoryTexture,
+        dynamicTexture: true,
+        dynamicTextureWidth: 8,
+        dynamicTextureHeight: 1,
+    })
+    world.addToHUD(inventory, 0, -0.3, -0.5);
+
 
 }
 
