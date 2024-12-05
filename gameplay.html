@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- P5 and AFrame Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://craignyu.github.io/aframep5/libraries/aframep5-v2.3.js"></script>
+
+
+    <!-- p5 Sketch -->
+    <script src="objects/Sensor.js"></script>
+    <script src="functions.js"></script>
+    <script src="objects/Coin.js"></script>
+    <script src="objects/Follower.js"></script>
+    <script src="objects/Trees.js"></script>
+    <script src="FullScreenHud.js"></script>
+    <script src="sketch.js"></script>
+    <script src="objects/Weapon.js"></script>
+    <script src="levels.html"></script>
+
+    <!-- custom styles -->
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- container to hold our VR scene - make sure to give this element an ID of 'VRScene' -->
+    <a-scene id="VRScene">
+        <a-assets id="VRAssets">
+            <!-- map of the maze -->
+            <img id = "level1" src = "sources/maps/level1.png">
+            <img id = "level2" src = "sources/maps/level2.png">
+            <img id = "level3" src = "sources/maps/level3.png">
+
+            <!-- ground texture -->
+            <img id = "grassPic" src = "sources/grassTexture/grass.jpg">
+
+            <!-- sky equirectangular graphics-->
+            <img id = "skyPic" src = "sources/sky.jpg">
+
+            <!-- maze wall graphics-->
+            <img id = "brick" src = "sources/brick.jpg">
+            <img id = "rockWall" src = "sources/rockTexture.png">
+
+            <img id="coinImg" src="sources/coin.png"></img> 
+
+            <!-- door -->
+            <a-asset-item id = "door" src="sources/door/scene.gltf"></a-asset-item>
+
+            <!-- GLTF Enemy Minecraft Creeper Model -->
+            <!-- replace with enemy model later -->
+            <a-asset-item id = "enemy_model" src = "sources/Creeper.glb"></a-asset-item>
+            <a-asset-item id = "weapon_model" src = "sources/heavy-metal_sword/scene.gltf"></a-asset-item>
+
+            <!-- tree obj -->
+            <a-asset-item id= "trees" src = "sources/tree.obj"></a-asset-item>
+            <a-asset-item id= "trees_mtl" src = "sources/tree.mtl"></a-asset-item>
+
+        </a-assets>
+
+    </a-scene>
+
+</body>
+
+</html>

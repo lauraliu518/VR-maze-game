@@ -205,7 +205,7 @@ function draw(){
         
         //redirect to ending webpage
         window.localStorage.setItem("gameState", game);
-        window.location.href = "index.html";
+        window.location.href = "gameplay.html";
     }
 
     //if the W key is pressed

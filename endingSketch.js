@@ -113,7 +113,7 @@ function win(){
     if(mouseLocRedness == 255 && mouseIsPressed){
         window.localStorage.setItem("winState", 0);
         winState = 0;
-        window.location.href = "index.html";
+        window.location.href = "gameplay.html";
     }
 
 }

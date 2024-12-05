@@ -71,7 +71,7 @@ function draw() {
 function mousePressed() {
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-    // if the button is pressed go to the level on the index.html page
+    // if the button is pressed go to the level on the gameplay.html page
     if (mouseX > button.x && mouseX < button.x + buttonSize && mouseY > button.y && mouseY < button.y + buttonSize) {
         if (i === 0) {
             startLevel(1);
@@ -86,5 +86,5 @@ function mousePressed() {
 
 function startLevel(levelNumber) {
     window.localStorage.setItem('level', levelNumber);
-    window.location.href = `index.html`;
+    window.location.href = `gameplay.html`;
 }
