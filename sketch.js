@@ -140,8 +140,20 @@ function setup(){
     // }
 
     // adding random trees into the platform
-    for(let i = 0; i < 20; i++){
-        trees.push(new Tree(random(-50, 50), 0, random(50, 100)));
+    for(let i = 0; i < 10; i++){
+        let tree = new AFrameP5.OBJ({
+            asset: "trees",        
+            mtl: "tree_mtl",            
+            x: random(-50, 50),                
+            y: 0,                
+            z: random(-50, 50),                
+            scaleX: .5,       
+            scaleY: .5,       
+            scaleZ: .5,       
+        });
+        tree.tag.setAttribute("material", "color: rgb(95, 99, 68)");
+        world.add(tree);
+        trees.push(tree);
     }
 
     //create sensors
