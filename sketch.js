@@ -192,17 +192,17 @@ function setup(){
         dynamicTexture: true,
         dynamicTextureWidth: 2,
         dynamicTextureHeight: 2,
-        clickFunction: function (entity) {
+        clickFunction: function (m) {
             // clicking on the plane
             mini.hide();
             largeMini.show();
             isMiniActive = false;
         },
-        enterFunction: function (entity) {
+        enterFunction: function (m) {
             // hover state, expand a little
             mini.setScale(1.2, 1.2, 1);
         },
-        leaveFunction: function (entity) {
+        leaveFunction: function (m) {
             // leave hover state, back to original
             mini.setScale(1, 1, 1); 
         },
@@ -221,17 +221,17 @@ function setup(){
         dynamicTexture: true,
         dynamicTextureWidth: 6,
         dynamicTextureHeight: 6,
-        clickFunction: function (entity) {
+        clickFunction: function (L) {
             // clicking on the plane
             largeMini.hide();
             mini.show();
             isMiniActive = false;
         },
-        enterFunction: function (entity) {
+        enterFunction: function (L) {
             // hover state
             largeMini.setScale(1.1, 1.1, 1); 
         },
-        leaveFunction: function (entity) {
+        leaveFunction: function (L) {
             // leave hover state
             largeMini.setScale(1, 1, 1); 
         },
