@@ -32,9 +32,11 @@ let followers = [];
 //tree variables
 let trees = [];
 
-//hud variables
+//mini map hud variables
 let buffer1;
 let texture1;
+let buffer2;
+let texture2;
 
 //localStorage variables for winning or losing the game. 0 for playing, 1 for lose, 2 for win.
 let win = 0;
@@ -55,7 +57,6 @@ let speed = 0.10;
 //inventory variables
 let inventory, inventoryBuffer, inventoryTexture;
 
-
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
@@ -71,6 +72,11 @@ function setup(){
     } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
     };
+
+    // start the game time
+    if (game == 1 && !window.localStorage.getItem('startTime')) {
+        window.localStorage.setItem('startTime', 0);
+    }
 
     // no canvas needed
     noCanvas();
@@ -165,14 +171,17 @@ function setup(){
         new Coin(coinType, x, z);
     }
 
+    // create followers
     for (let i = 0; i < 100; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
         followers.push(new Follower(x,1.5,z,0.01));
     }
 
-    buffer1 = createGraphics(256, 256);
+    // check if the mini map is not clicked on, default
+    let isMiniActive = true;
 
+    buffer1 = createGraphics(256, 256);
     texture1 = world.createDynamicTextureFromCreateGraphics(buffer1);
 
     // create a mini map in the top right corner of the game
@@ -183,12 +192,56 @@ function setup(){
         dynamicTexture: true,
         dynamicTextureWidth: 2,
         dynamicTextureHeight: 2,
+        clickFunction: function (entity) {
+            // clicking on the plane
+            mini.hide();
+            largeMini.show();
+            isMiniActive = false;
+        },
+        enterFunction: function (entity) {
+            // hover state, expand a little
+            mini.setScale(1.2, 1.2, 1);
+        },
+        leaveFunction: function (entity) {
+            // leave hover state, back to original
+            mini.setScale(1, 1, 1); 
+        },
     });
     //world.addToHUD(mini, 3, 1.8, -3);
     world.addToHUD(mini, 0.5, 0.3, -0.5);
 
-    weapon = new Weapon();
+    buffer2 = createGraphics(1536, 1536);
+    texture2 = world.createDynamicTextureFromCreateGraphics(buffer2);
 
+    // create a expanded version of the mini map in the middle of the game
+    let largeMini = new AFrameP5.Plane({
+        width: 0.60, height: 0.60,
+        asset: texture2,
+        side: "double",
+        dynamicTexture: true,
+        dynamicTextureWidth: 6,
+        dynamicTextureHeight: 6,
+        clickFunction: function (entity) {
+            // clicking on the plane
+            largeMini.hide();
+            mini.show();
+            isMiniActive = false;
+        },
+        enterFunction: function (entity) {
+            // hover state
+            largeMini.setScale(1.1, 1.1, 1); 
+        },
+        leaveFunction: function (entity) {
+            // leave hover state
+            largeMini.setScale(1, 1, 1); 
+        },
+    });
+    world.addToHUD(largeMini, 0, 0, -0.4);
+
+    // hide the large mini map at the beginning
+    largeMini.hide();
+
+    weapon = new Weapon();
 
     inventoryBuffer = createGraphics(256, 32);
     inventoryBuffer.background(128, 0, 0);
@@ -202,26 +255,83 @@ function setup(){
     })
     world.addToHUD(inventory, 0, -0.3, -0.5);
 
-
 }
 
 function draw(){
 
+    // track the time passed since the start by adding 1
+    let startTime = window.localStorage.getItem('startTime');
+    if (startTime !== null) {
+        // make the string into an integer
+        startTime = int(startTime);
+        window.localStorage.setItem('startTime', startTime + 1);
+    }
+    
+    // check user position
     const userPosition = world.getUserPosition();
-    const userRotation = world.getUserRotation();
 
+    const userRotation = world.getUserRotation();
+    
+    // small mini map
     buffer1.background(128);
     buffer1.image(mapGraphic, 0, 0, 256, 256);
-
+    // position to map user's position onto map
     let miniMapX = map(userPosition.x, -50, 50, 0, 256);
     let miniMapY = map(userPosition.z, -50, 50, 0, 256);
-
-    //console.log(miniMapX, miniMapY);
+    // show user as a blue circle on map
     buffer1.fill(0, 0, 255);
-    buffer1.ellipse(miniMapX, miniMapY, 20, 20);
+    buffer1.stroke(0, 154, 238);
+    buffer1.strokeWeight(5);
+    buffer1.ellipse(miniMapX, miniMapY, 15, 15);
+
+    // add border to small mini map
+    buffer1.stroke(63, 155, 11);
+    buffer1.strokeWeight(10);
+    buffer1.noFill();
+    buffer1.rect(0, 0, 256, 256);
+
+    // big minimap
+    buffer2.background(128);
+    buffer2.image(mapGraphic, 0, 0, 1536, 1536);
+    // position to map user's position onto map
+    let largeminiMapX = map(userPosition.x, -50, 50, 0, 1536);
+    let largeminiMapY = map(userPosition.z, -50, 50, 0, 1536);
+    // show user as a blue circle on map
+    buffer2.fill(0, 0, 1535);
+    buffer2.stroke(0, 154, 238);
+    buffer2.strokeWeight(20);
+    buffer2.ellipse(largeminiMapX, largeminiMapY, 50, 50);
+
+    // add border to large mini map
+    buffer2.stroke(63, 155, 11);
+    buffer2.strokeWeight(30);
+    buffer2.noFill();
+    buffer2.rect(0, 0, 1536, 1536);
+
+    // map the followers/enemies onto the mini map as well
+    for (let i = 0; i < followers.length; i++) {
+        let follower = followers[i];
+
+        // find the follower's postiions, map onto smaller mini map
+        let miniFollowerX = map(follower.x, -50, 50, 0, 256);
+        let miniFollowerY = map(follower.z, -50, 50, 0, 256);
+        // draw followers as brown squares on mini map
+        buffer1.fill(139, 69, 19);
+        buffer1.noStroke();
+        buffer1.rect(miniFollowerX, miniFollowerY, 10, 10); 
+    
+        // find the follower's postiions, map onto larger mini map
+        let largeFollowerX = map(follower.x, -50, 50, 0, 1536);
+        let largeFollowerY = map(follower.z, -50, 50, 0, 1536);
+        // draw followers as brown squares on mini map
+        buffer2.fill(139, 69, 19);
+        buffer2.stroke(199, 0, 0);
+        buffer2.strokeWeight(7);
+        buffer2.rect(largeFollowerX, largeFollowerY, 50, 50); 
+    }
 
     if (weapon) {
-        weapon.update(userPosition,userRotation);
+        weapon.update(userPosition, userRotation);
     }
     //console.log(win);
     //update winning state
@@ -230,13 +340,6 @@ function draw(){
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }
-
-    // if(game != 0){
-        
-    //     //redirect to ending webpage
-    //     window.localStorage.setItem("gameState", game);
-    //     window.location.href = "gameplay.html";
-    // }
 
     //if the W key is pressed
     if (keyIsDown(87)) {

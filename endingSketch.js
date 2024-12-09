@@ -8,8 +8,8 @@ let canvas;
 
 //win state variable passed in from game play webpage. 1 for lose, 2 for win, 0 for playing
 let winState;
-
-let timeTaken = 50.2347;
+let startTime = window.localStorage.getItem('startTime');
+let timeTaken;
 
 //particle system array
 let bricks = [];
@@ -31,7 +31,6 @@ function setup(){
     bg.resize(width, height);
     brick.resize(20, 20);
 
-    
     if(window.localStorage.getItem("winState") == null){
         console.log("Error retreving winning state from game.");
     }else{
@@ -41,6 +40,15 @@ function setup(){
 }
 
 function draw(){
+
+    // keeping track of time
+    if (startTime !== null) {
+        timeTaken = startTime / 60; // time for every 60 seconds
+        window.localStorage.removeItem('startTime');
+    } else {
+        timeTaken = 0;
+    }
+
     if(winState == 1){
         lose();
     }else if(winState == 2){
@@ -90,7 +98,6 @@ function win(){
     strokeWeight(8);
     textStyle(BOLD);
     textAlign(CENTER);
-    timeTaken = int(timeTaken);
     text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
     text("Press PLAY to replay", width/2, height/2+1*height/15);
 
