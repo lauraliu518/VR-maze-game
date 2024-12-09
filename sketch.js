@@ -138,12 +138,12 @@ function setup(){
     //create walls based on wall map
     mapWalls();
 
-    // //enemies
-    // //adding enemies
-    // for(let i = 0; i < initialEnemyCount; i++){
-    //     //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
-    //     enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
-    // }
+    //enemies
+    //adding enemies
+    for(let i = 0; i < initialEnemyCount; i++){
+        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
+        enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
+    }
 
     // adding random trees into the platform
     for(let i = 0; i < 10; i++){
