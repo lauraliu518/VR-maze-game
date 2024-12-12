@@ -10,7 +10,7 @@ function createFullScreenHud() {
     hudPlane = new AFrameP5.Plane({
         x: 0,
         y: 0,
-        z: -1.5, // Close to the user
+        z: -1, // Close to the user
         dynamicTexture: true,
         dynamicTextureWidth: window.innerWidth,
         dynamicTextureHeight: window.innerHeight,

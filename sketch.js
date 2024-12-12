@@ -28,6 +28,7 @@ let blockSize = 1;
 
 //follower variables
 let followers = [];
+let initialEnemyCount;
 
 //tree variables
 let trees = [];

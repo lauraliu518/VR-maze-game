@@ -53,7 +53,7 @@ class Follower {
                     hudBuffer.textSize(50);
                     hudBuffer.textAlign(CENTER, CENTER);
                     hudBuffer.fill(255);
-                    hudBuffer.text("GG...\n Don't be too close to the monsters!!!", 512 / 2, 512 / 2);
+                    hudBuffer.text("GG...\n Don't be too close to the monsters!!!", window.innerWidth / 2, window.innerHeight / 2);
                 }
 
                 // Check collision with the weapon
