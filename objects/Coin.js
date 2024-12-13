@@ -54,6 +54,7 @@ class Coin {
                     const myPosition = coins.getPosition();
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z)+ dist(userPosition.x, userPosition.y, myPosition.x, myPosition.y)< 4) {
                         coinInstance.collected = true;
+                        totalCoinCount++;
 
                         
                         // coinInstance.buffer.clear();

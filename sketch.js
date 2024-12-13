@@ -56,12 +56,27 @@ let doorZ = 0;
 let speed = 0.10;
 
 //inventory variables
-let inventory, inventoryBuffer, inventoryTexture;
+let inventory, inventoryBuffer, inventoryTexture; //size 256x32
+//size 32x32
+let icons = []; //sprinterIcon, slowIcon, teleportIcon, coinIcon, swingCount
+let totalCoinCount = 0;
+let totalSwing = 40;
+let speedUpFlag = false;
+let slowDownFlag = false;
+let teleportFlag = false;
+let flags = [false, false, false];
+
 
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
     level3 = loadImage("sources/maps/level3.png");
+    icons[0] = loadImage("sources/icons/sprinterIcon.png");
+    icons[1] = loadImage("sources/icons/slowIcon.webp");
+    icons[2] = loadImage("sources/icons/teleportIcon.png");
+    icons[3] = loadImage("sources/icons/coinIcon.png");
+    icons[4] = loadImage("sources/icons/swordIcon.png");
+
 }
 
 function setup(){
@@ -84,7 +99,7 @@ function setup(){
     // construct A-Frame world
     world = new AFrameP5.World('VRScene');
     //disable flying
-    //world.setFlying(false);
+    world.setFlying(false);
     //disable WASD navigation
     world.camera.cameraEl.removeAttribute('wasd-controls');
 
@@ -244,14 +259,14 @@ function setup(){
 
     weapon = new Weapon();
 
-    inventoryBuffer = createGraphics(256, 32);
+    inventoryBuffer = createGraphics(152, 32);
     inventoryBuffer.background(128, 0, 0);
     inventoryTexture = world.createDynamicTextureFromCreateGraphics(inventoryBuffer);
     let inventory = new AFrameP5.Plane({
-        width: 0.8, height: 0.1,
+        width: 0.5, height: 0.1,
         asset: inventoryTexture,
         dynamicTexture: true,
-        dynamicTextureWidth: 8,
+        dynamicTextureWidth: 5,
         dynamicTextureHeight: 1,
     })
     world.addToHUD(inventory, 0, -0.3, -0.5);
@@ -259,6 +274,43 @@ function setup(){
 }
 
 function draw(){
+    inventoryBuffer.fill(212, 106, 106);
+    inventoryBuffer.strokeWeight(2);
+    inventoryBuffer.stroke(85, 0, 0);
+    for(let i = 0; i < 150; i += 30){
+        inventoryBuffer.rect(1+i, 1, 30, 30);
+    }
+    for(let i = 0; i < 150; i += 30){
+        //icon drawing. center point (16+i, 16), icon index i/30
+        inventoryBuffer.imageMode(CENTER);
+        inventoryBuffer.image(icons[i/30], 1+15+i, 16, 25, 25);
+        
+    }
+    inventoryBuffer.textAlign(CENTER);
+    inventoryBuffer.rectMode(CENTER);
+    inventoryBuffer.fill(0, 0, 0, 80);
+    inventoryBuffer.noStroke();
+    inventoryBuffer.rect(16+90, 16, 30, 30);
+    inventoryBuffer.rectMode(CORNER);
+    inventoryBuffer.fill(255);
+    inventoryBuffer.text(totalCoinCount, 16+90, 18);
+
+    inventoryBuffer.rectMode(CENTER);
+    inventoryBuffer.fill(0, 0, 0, 80);
+    inventoryBuffer.noStroke();
+    inventoryBuffer.rect(16+120, 16, 30, 30);
+    inventoryBuffer.rectMode(CORNER);
+    inventoryBuffer.fill(255);
+    inventoryBuffer.text(totalSwing, 16+120, 18);
+
+    for(let i = 0; i < 3; i++){
+        if(flags[i]==false){
+            inventoryBuffer.strokeWeight(2);
+            inventoryBuffer.stroke(0);
+            inventoryBuffer.line(3+i*30, 3, 29+i*30, 29);
+        }
+    }
+    
 
     // track the time passed since the start by adding 1
     let startTime = window.localStorage.getItem('startTime');
@@ -309,6 +361,13 @@ function draw(){
     buffer2.noFill();
     buffer2.rect(0, 0, 1536, 1536);
 
+    if (dist(userPosition.x, userPosition.z, doorX, doorZ)+ dist(userPosition.x, userPosition.y, doorX, doorY)< 4) {
+        win = 2;
+        world.remove(exitDoor);
+        window.localStorage.setItem("winState", win);
+        window.location.href = "ending.html";
+    }
+
     // map the followers/enemies onto the mini map as well
     for (let i = 0; i < followers.length; i++) {
         let follower = followers[i];
@@ -334,7 +393,7 @@ function draw(){
     if (weapon) {
         weapon.update(userPosition, userRotation);
     }
-    //console.log(win);
+
     //update winning state
     if(win != 0){
         //redirect to ending webpage
@@ -397,3 +456,4 @@ function draw(){
     }
     
 }
+

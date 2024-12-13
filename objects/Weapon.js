@@ -34,9 +34,10 @@ class Weapon {
     }
   
     swing() {
-      if (Weapon.isSwinging) return; // Avoid overlapping swings
+      if (Weapon.isSwinging || totalSwing <= 0) return; // Avoid overlapping swings
       this.swingStartTime = millis();
       Weapon.isSwinging = true;
+      totalSwing--;
     }
   
     update(userPosition, userRotation) {
