@@ -429,9 +429,9 @@ function draw(){
         buffer2.rect(largeFollowerX, largeFollowerY, 50, 50); 
     }
 
-    if (weapon) {
-        weapon.update(userPosition, userRotation);
-    }
+    // if (weapon) {
+    //     weapon.update(userPosition, userRotation);
+    // }
 
     //if the W key is pressed
     if (keyIsDown(87)) {
