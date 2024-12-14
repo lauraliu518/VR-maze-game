@@ -417,9 +417,9 @@ function draw(){
 
     if (dist(userPosition.x, userPosition.z, doorX, doorZ)+ dist(userPosition.x, userPosition.y, doorX, doorY)< 4) {
         win = 2;
-        world.remove(exitDoor);
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
+        world.remove(exitDoor);
     }
 
     // map the followers/enemies onto the mini map as well
@@ -446,13 +446,6 @@ function draw(){
 
     if (weapon) {
         weapon.update(userPosition, userRotation);
-    }
-
-    //update winning state
-    if(win != 0){
-        //redirect to ending webpage
-        window.localStorage.setItem("winState", win);
-        window.location.href = "ending.html";
     }
 
     //if the W key is pressed
@@ -503,10 +496,18 @@ function draw(){
             world.moveUserRight(speed);
         }
     }
-    for(let i = 0; i < 1; i++){
+    for(let i = 0; i < followerCount; i++){
         if(followers[i].caughtUser){
             win = 1; //lose the game
+            // window.localStorage.setItem("winState", win);
+            // window.location.href = "ending.html";
         }
+    }
+    //update winning state
+    if(win != 0){
+        //redirect to ending webpage
+        window.localStorage.setItem("winState", win);
+        window.location.href = "ending.html";
     }
     
 }
