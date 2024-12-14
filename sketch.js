@@ -188,7 +188,7 @@ function setup(){
     //create sensors
     sensor = new Sensor();
     for (let i = 0; i < totalItemCount; i++) {
-        let coinType = random([1, 2]) == 1 ? "octahedron" : "cylinder";
+        let coinType = random(["octahedron", "coin","spiderWeb"]);
         let x = random(-48, 48);
         let z = random(-48, 48);
         new Coin(coinType, x, z);

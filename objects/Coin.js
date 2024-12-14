@@ -84,17 +84,15 @@ class Coin {
                     coins.setScale(0.75, 1, 0.75);
                 },
             });
-        } else {
-            this.coin = new AFrameP5.Cylinder({
+        } else if(this.type == "coin"){
+            this.coin = new AFrameP5.GLTF({
                 asset: "coinImg",
                 x: this.x,
                 z: this.z,
-                rotationZ: 90,
-                scaleY: 0.1,
-                red: 255,
-                green: 255,
-                blue: 0,
-
+                scaleX:5,
+                scaleY:5,
+                scaleZ:5,
+                //rotationZ: 90,
                 tickFunction: function (coins) {
                     if (coinInstance.yPos < 1) {
                         coinInstance.ySpeed = 0.005;
@@ -112,6 +110,63 @@ class Coin {
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 2) {
                         coinInstance.collected = true;
                         totalCoinCount++;
+
+                        // points++;
+                        // coinInstance.buffer.clear();
+                        // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
+                        // if (points >= 10) {
+                        //     coinInstance.buffer.clear();
+                        //     coinInstance.buffer.text("Nice!", 512 / 2, 512 / 2);
+                        //     points = 0;
+                        // }
+
+                        // Remove the coin from the world
+                        world.remove(coins);
+                    }
+                },
+
+                overFunction: function (coins) {
+                    coins.setScale(2, 0.2, 2);
+                },
+
+                leaveFunction: function (coins) {
+                    coins.setScale(1, 0.1, 1);
+                },
+            });
+        }
+        else if(this.type == "spiderWeb"){
+            this.coin = new AFrameP5.GLTF({
+                asset: "coinImg",
+                x: this.x,
+                z: this.z,
+                scaleX:5,
+                scaleY:5,
+                scaleZ:5,
+                //rotationZ: 90,
+                tickFunction: function (coins) {
+                    if (coinInstance.yPos < 1) {
+                        coinInstance.ySpeed = 0.005;
+                    } else if (coinInstance.yPos > 1.5) {
+                        coinInstance.ySpeed = -0.005;
+                    }
+                    coinInstance.yPos += coinInstance.ySpeed;
+                    coins.setY(coinInstance.yPos);
+                    coins.spinY(coinInstance.rotationDirection);
+
+                    if (coinInstance.collected) return;
+
+                    const userPosition = world.getUserPosition();
+                    const myPosition = coins.getPosition();
+                    if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 2) {
+                        coinInstance.collected = true;
+                        const decreasedSpeed = 0.03; 
+                        speed = decreasedSpeed; 
+                        flags[1] = true;
+                        setTimeout(() => {
+                            flags[1] = false;
+                            speed=0.10; // Reset to original flag
+                        }, 5000);
+                        
 
                         // points++;
                         // coinInstance.buffer.clear();
