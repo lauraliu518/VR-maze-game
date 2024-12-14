@@ -84,19 +84,19 @@ function setup(){
     // assign the corresponding map based on the 'level' parameter
     if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
-        followerCount = 20;
+        followerCount = 10;
         totalItemCount = 15;
-        totalSwing = 40;
+        totalSwing = 30;
     } else if(window.localStorage.getItem('level') == 2){
         mapGraphic = level2;
-        followerCount = 50;
+        followerCount = 20;
         totalItemCount = 20;
-        totalSwing = 30;
+        totalSwing = 40;
     } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
-        followerCount = 60;
-        totalItemCount = 40;
-        totalSwing = 30;
+        followerCount = 50;
+        totalItemCount = 30;
+        totalSwing = 20;
     };
 
     // start the game time
@@ -190,7 +190,7 @@ function setup(){
 
     //create sensors
     sensor = new Sensor();
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < totalItemCount; i++) {
         let coinType = random([1, 2]) == 1 ? "octahedron" : "cylinder";
         let x = random(-48, 48);
         let z = random(-48, 48);
