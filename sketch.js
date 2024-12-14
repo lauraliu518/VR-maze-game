@@ -71,6 +71,11 @@ let myfont;
 
 let nonWallPos = [];
 
+//time variables
+let startingTime;
+let elapsedTime;
+let timeTaked = false;
+
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
@@ -86,6 +91,9 @@ function preload(){
 }
 
 function setup(){
+    //record time when game started
+    startingTime = millis();
+
     // assign the corresponding map based on the 'level' parameter
     if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
@@ -103,11 +111,6 @@ function setup(){
         totalItemCount = 30;
         totalSwing = 20;
     };
-
-    // start the game time
-    if (game == 1 && !window.localStorage.getItem('startTime')) {
-        window.localStorage.setItem('startTime', 0);
-    }
 
     // no canvas needed
     noCanvas();
@@ -364,19 +367,8 @@ function draw(){
         }
     }
     
-
-    // track the time passed since the start by adding 1
-    let startTime = window.localStorage.getItem('startTime');
-    if (startTime !== null) {
-        // make the string into an integer
-        startTime = int(startTime);
-        window.localStorage.setItem('startTime', startTime + 1);
-    }
-    
     // check user position
     const userPosition = world.getUserPosition();
-
-    const userRotation = world.getUserRotation();
     
     // small mini map
     buffer1.background(128);
@@ -413,13 +405,6 @@ function draw(){
     buffer2.strokeWeight(30);
     buffer2.noFill();
     buffer2.rect(0, 0, 1536, 1536);
-
-    if (dist(userPosition.x, userPosition.z, doorX, doorZ)+ dist(userPosition.x, userPosition.y, doorX, doorY)< 4) {
-        win = 2;
-        window.localStorage.setItem("winState", win);
-        window.location.href = "ending.html";
-        world.remove(exitDoor);
-    }
 
     // map the followers/enemies onto the mini map as well
     for (let i = 0; i < followers.length; i++) {
@@ -495,19 +480,32 @@ function draw(){
             world.moveUserRight(speed);
         }
     }
+
+    //checking winning/losing conditions
+    //user attacked by enemy
     for(let i = 0; i < followerCount; i++){
         if(followers[i].caughtUser){
             win = 1; //lose the game
-            // window.localStorage.setItem("winState", win);
-            // window.location.href = "ending.html";
         }
+    }
+    //user reaches ending door
+    if (dist(userPosition.x, userPosition.z, doorX, doorZ)+ dist(userPosition.x, userPosition.y, doorX, doorY)< 4) {
+        win = 2; //win game
     }
     //update winning state
     if(win != 0){
         //redirect to ending webpage
+        if(timeTaked == false){
+            endingTime = millis();
+            timeTaked = true;
+            elapsedTime = int((endingTime - startingTime)/1000);//casting time taken to int
+        }
+        window.localStorage.setItem("timeTaken", elapsedTime);
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }
+
+    
     
 }
 

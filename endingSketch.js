@@ -8,7 +8,6 @@ let canvas;
 
 //win state variable passed in from game play webpage. 1 for lose, 2 for win, 0 for playing
 let winState;
-let startTime = window.localStorage.getItem('startTime');
 let timeTaken = 0;
 
 //particle system array
@@ -36,18 +35,15 @@ function setup(){
     }else{
         winState = window.localStorage.getItem("winState");
     }
-    
+    if(window.localStorage.getItem("timeTaken") == null){
+        console.log("Error retreving time taken from game.");
+    }else{
+        timeTaken = window.localStorage.getItem('timeTaken');
+    }
+   
 }
 
 function draw(){
-
-    startTime = window.localStorage.getItem('startTime');
-    // keeping track of time
-    if (startTime != null) {
-        timeTaken = startTime / 60; // time for every 60 seconds
-        window.localStorage.removeItem('startTime');
-    }
-
     if(winState == 1){
         lose();
     }else if(winState == 2){
@@ -57,12 +53,6 @@ function draw(){
 
 function win(){
     background(bg);
-
-    // //background panel tint
-    // rectMode(CENTER);
-    // fill(215, 157, 102, 80);
-    // noStroke();
-    // rect(width/2, height/2, width/1.2, height/1.1, 30);
 
     //falling bricks
     for(let i = 0; i < 30; i++){
@@ -74,7 +64,6 @@ function win(){
             bricks.push(new Brick);
         }
     }
-
 
     //YOU WIN! headline
     textToRotate = " YOU WIN!";
@@ -127,12 +116,6 @@ function win(){
 function lose(){
     background(bg);
 
-    // //background panel tint
-    // rectMode(CENTER);
-    // fill(215, 157, 102, 80);
-    // noStroke();
-    // rect(width/2, height/2, width/1.2, height/1.1, 30);
-
     //falling bricks
     for(let i = 0; i < 30; i++){
         bricks.push(new Brick);
@@ -143,7 +126,6 @@ function lose(){
             bricks.push(new Brick);
         }
     }
-
 
     //YOU WIN! headline
     textToRotate = "  GAME OVER!";
@@ -227,8 +209,6 @@ function rotateText(x, y, radius, txt) {
         rotate(radians(charSpacingAngleDeg))
     }
 
-    // Reset all translations we did since the last push() call
-    // so anything we draw after this isn't affected
     pop()
 
 }
