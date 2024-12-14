@@ -67,6 +67,8 @@ let slowDownFlag = false;
 let teleportFlag = false;
 let flags = [false, false, false];
 
+let myfont;
+
 
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
@@ -77,6 +79,8 @@ function preload(){
     icons[2] = loadImage("sources/icons/teleportIcon.png");
     icons[3] = loadImage("sources/icons/coinIcon.png");
     icons[4] = loadImage("sources/icons/swordIcon.png");
+    //myfont = loadFont("sources/fontResource/Tiny5/Tiny5-Regular.ttf"); 
+    myfont = loadFont("sources/fontResource/Orbitron/Orbitron-VariableFont_wght.ttf"); 
 
 }
 
@@ -163,13 +167,6 @@ function setup(){
 
     //create walls based on wall map
     mapWalls();
-
-    //enemies
-    //adding enemies
-    // for(let i = 0; i < initialEnemyCount; i++){
-    //     //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
-    //     enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
-    // }
 
     // adding random trees into the platform
     for(let i = 0; i < 10; i++){
@@ -270,6 +267,7 @@ function setup(){
     weapon = new Weapon();
 
     inventoryBuffer = createGraphics(152, 32);
+    inventoryBuffer.textFont(myfont);
     inventoryBuffer.background(128, 0, 0);
     inventoryTexture = world.createDynamicTextureFromCreateGraphics(inventoryBuffer);
     let inventory = new AFrameP5.Plane({
@@ -291,28 +289,36 @@ function draw(){
     for(let i = 0; i < 150; i += 30){
         inventoryBuffer.rect(1+i, 1, 30, 30);
     }
-    for(let i = 0; i < 150; i += 30){
+    for(let i = 0; i < 90; i += 30){
         //icon drawing. center point (16+i, 16), icon index i/30
         inventoryBuffer.imageMode(CENTER);
         inventoryBuffer.image(icons[i/30], 1+15+i, 16, 25, 25);
+        
+    }
+    for(let i = 90; i < 150; i += 30){
+        //icon drawing. center point (16+i, 16), icon index i/30
+        inventoryBuffer.imageMode(CENTER);
+        inventoryBuffer.image(icons[i/30], 1+15+i, 10, 12, 12);
         
     }
     inventoryBuffer.textAlign(CENTER);
     inventoryBuffer.rectMode(CENTER);
     inventoryBuffer.fill(0, 0, 0, 80);
     inventoryBuffer.noStroke();
-    inventoryBuffer.rect(16+90, 16, 30, 30);
+    //inventoryBuffer.rect(16+90, 16, 30, 30);
     inventoryBuffer.rectMode(CORNER);
     inventoryBuffer.fill(255);
-    inventoryBuffer.text(totalCoinCount, 16+90, 18);
+    inventoryBuffer.textSize(10);
+    inventoryBuffer.fill(0);
+    inventoryBuffer.text(totalCoinCount, 16+90, 27);
 
     inventoryBuffer.rectMode(CENTER);
     inventoryBuffer.fill(0, 0, 0, 80);
     inventoryBuffer.noStroke();
-    inventoryBuffer.rect(16+120, 16, 30, 30);
+    //inventoryBuffer.rect(16+120, 16, 30, 30);
     inventoryBuffer.rectMode(CORNER);
-    inventoryBuffer.fill(255);
-    inventoryBuffer.text(totalSwing, 16+120, 18);
+    inventoryBuffer.fill(0);
+    inventoryBuffer.text(totalSwing, 16+120, 27);
 
     for(let i = 0; i < 3; i++){
         if(flags[i] == false){
