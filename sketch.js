@@ -100,12 +100,12 @@ function setup(){
         mapGraphic = level1;
         followerCount = 10;
         totalItemCount = 15;
-        totalSwing = 30;
+        totalSwing = 15;
     } else if(window.localStorage.getItem('level') == 2){
         mapGraphic = level2;
         followerCount = 20;
         totalItemCount = 20;
-        totalSwing = 40;
+        totalSwing = 25;
     } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
         followerCount = 50;
@@ -357,7 +357,13 @@ function draw(){
     inventoryBuffer.noStroke();
     //inventoryBuffer.rect(16+120, 16, 30, 30);
     inventoryBuffer.rectMode(CORNER);
-    inventoryBuffer.fill(0);
+    if(totalSwing <= 10){
+        inventoryBuffer.fill(255, 0, 0);
+        inventoryBuffer.stroke(0);
+        inventoryBuffer.strokeWeight(1);
+    }else{
+        inventoryBuffer.fill(0);
+    }
     inventoryBuffer.text(totalSwing, 16+120, 27);
 
     for(let i = 0; i < 3; i++){
