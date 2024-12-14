@@ -71,7 +71,6 @@ let myfont;
 
 let nonWallPos = [];
 
-
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
@@ -337,7 +336,6 @@ function draw(){
         //icon drawing. center point (16+i, 16), icon index i/30
         inventoryBuffer.imageMode(CENTER);
         inventoryBuffer.image(icons[i/30], 1+15+i, 10, 12, 12);
-        
     }
     inventoryBuffer.textAlign(CENTER);
     inventoryBuffer.rectMode(CENTER);
