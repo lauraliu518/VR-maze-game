@@ -1,0 +1,11 @@
+Model Information:
+* title:	spiders web
+* source:	https://sketchfab.com/3d-models/spiders-web-604836f1fdbd45db861e48a58e07b277
+* author:	4lepy (https://sketchfab.com/4lepy)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "spiders web" (https://sketchfab.com/3d-models/spiders-web-604836f1fdbd45db861e48a58e07b277) by 4lepy (https://sketchfab.com/4lepy) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

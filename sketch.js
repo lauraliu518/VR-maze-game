@@ -69,6 +69,8 @@ let flags = [false, false, false];
 
 let myfont;
 
+let nonWallPos = [];
+
 
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
@@ -187,17 +189,53 @@ function setup(){
 
     //create sensors
     sensor = new Sensor();
-    for (let i = 0; i < totalItemCount; i++) {
-        let coinType = random(["octahedron", "coin","spiderWeb"]);
-        let x = random(-48, 48);
-        let z = random(-48, 48);
+
+    for(let i = 0; i < worldSize; i++){  // ensure that the elements are not printed in the wall.
+        for(let j = 0; j < worldSize; j++){
+            if(!checkIfMapPositionIsBlack(offset + i, offset + j)){
+                let x = convert2Dto3D(offset + i);
+                let z = convert2Dto3D(offset + j);
+                let bounds = 2;
+                if(!checkIfMapPositionIsBlack(offset + i + bounds, offset + j)&&
+                !checkIfMapPositionIsBlack(offset + i - bounds, offset + j)&&
+                !checkIfMapPositionIsBlack(offset + i, offset + j + bounds)&&
+                !checkIfMapPositionIsBlack(offset + i, offset + j - bounds)){
+                    nonWallPos.push([x,z]);
+                }
+            }
+        }
+    }
+    for (let i = 0; i < 10; i++) {
+        let coinType = "portal";//random(["octahedron", "coin","spiderWeb","portal"]);
+        let [x,z] = random(nonWallPos);
+        new Coin(coinType, x, z);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        let coinType = "octahedron";//random(["octahedron", "coin","spiderWeb","portal"]);
+        let [x,z] = random(nonWallPos);
+
+        new Coin(coinType, x, z);
+    }
+
+    for (let i = 0; i < 30; i++) {
+        let coinType = "coin";//random(["octahedron", "coin","spiderWeb","portal"]);
+        let [x,z] = random(nonWallPos);
+
+        new Coin(coinType, x, z);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        let coinType = "spiderWeb";//random(["octahedron", "coin","spiderWeb","portal"]);
+        let [x,z] = random(nonWallPos);
+
         new Coin(coinType, x, z);
     }
 
     // create followers
     for (let i = 0; i < followerCount; i++) {
-        let x = random(-48, 48);
-        let z = random(-48, 48);
+        let [x,z] = random(nonWallPos);
+
         followers.push(new Follower(x,1.5,z,0.01));
     }
 

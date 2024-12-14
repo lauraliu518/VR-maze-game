@@ -126,24 +126,25 @@ class Coin {
                 },
 
                 overFunction: function (coins) {
-                    coins.setScale(2, 0.2, 2);
+                    coins.setScale(8, 8, 8);
                 },
 
                 leaveFunction: function (coins) {
-                    coins.setScale(1, 0.1, 1);
+                    coins.setScale(5, 5, 5);
                 },
             });
         }
         else if(this.type == "spiderWeb"){
             this.coin = new AFrameP5.GLTF({
-                asset: "coinImg",
+                asset: "spiderWeb",
                 x: this.x,
                 z: this.z,
-                scaleX:5,
-                scaleY:5,
-                scaleZ:5,
+                scaleX:2,
+                scaleY:2,
+                scaleZ:2,
                 //rotationZ: 90,
                 tickFunction: function (coins) {
+                    coins.lookAtUser(); // look at the user
                     if (coinInstance.yPos < 1) {
                         coinInstance.ySpeed = 0.005;
                     } else if (coinInstance.yPos > 1.5) {
@@ -151,7 +152,7 @@ class Coin {
                     }
                     coinInstance.yPos += coinInstance.ySpeed;
                     coins.setY(coinInstance.yPos);
-                    coins.spinY(coinInstance.rotationDirection);
+                    //coins.spinY(coinInstance.rotationDirection);
 
                     if (coinInstance.collected) return;
 
@@ -181,15 +182,41 @@ class Coin {
                         world.remove(coins);
                     }
                 },
-
-                overFunction: function (coins) {
-                    coins.setScale(2, 0.2, 2);
-                },
-
-                leaveFunction: function (coins) {
-                    coins.setScale(1, 0.1, 1);
-                },
             });
+        }else if (this.type == "portal"){
+            this.coin = new AFrameP5.GLTF({
+                asset: "portal",
+                x: this.x,
+                z: this.z,
+                y: 2,
+                scaleX:0.4,
+                scaleY:0.4,
+                scaleZ:0.4,
+                class: "clickable",
+                 tickFunction: function (coins) {        
+                     coins.spinY(coinInstance.rotationDirection);
+                     coins.spinX(coinInstance.rotationDirection);
+                     coins.spinZ(coinInstance.rotationDirection);
+
+                     if (coinInstance.collected) return;
+
+                     const userPosition = world.getUserPosition();
+                     const myPosition = coins.getPosition();
+                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 1) {
+                         coinInstance.collected = true;
+                         world.remove(coins);
+                    }
+                 },
+                clickFunction: function(coins) {
+                    console.log("Portal clicked!");
+                    world.teleportToObject(coins, 1000);
+                    flags[2] = true;
+                    setTimeout(() => {
+                        flags[2] = false;
+                    }, 1000);
+                }
+            });
+            
         }
         // Add coin to the world
         world.add(this.coin);
