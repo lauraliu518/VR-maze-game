@@ -17,6 +17,10 @@
 
     <!-- Import Font -->
     <link href="https://www.fontsquirrel.com/fonts/bungee" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Tiny5&display=swap" rel="stylesheet">
 
     <!-- p5 Sketch -->
     <script src="starting.js"></script>
@@ -58,7 +62,7 @@
             pointer-events: none; 
         }
 
-        #loading-screen img {
+        #loadingScreen img {
             width: 150px;
             height: auto;
         }
@@ -68,6 +72,23 @@
             font-family: 'Bungee Shade', sans-serif;
             font-size: 50px;
             color: white;
+        }
+
+        #gameRules {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            width: 60%;
+            transform: translate(-50%, -50%);
+            font-family: 'Silkscreen', sans-serif;
+            font-size: 13px;
+            color: white;
+            background-color: rgba(67, 118, 61, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1;
+            text-align: left;
+            display: none;
         }
     </style>
 </head>
@@ -82,12 +103,27 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const loadingScreen = document.getElementById('loadingScreen');
+            const gameRules = document.getElementById('gameRules');
+
             // load screen for one second
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
+                gameRules.style.display = 'block';
             }, 1000);
         });
     </script>
+
+    <!-- rules and tips for the maze game -->
+    <div id="gameRules">
+        <p>Get ready for a thrilling adventure as you navigate through the maze! Use your <strong>WASD keys</strong> to move, press the <strong>Space Bar</strong> to defeat any ghosts in your path, and collect coins as you race to the end.</p>
+        <h3>Tips and Tools:</h3>
+        <ul>
+            <li>Your <strong>status bar</strong> will show when <strong>diamonds</strong> speed you up</li>
+            <li>Your <strong>status bar</strong> will also show when <strong>webs</strong> slow you down</li>
+            <li>Keep an eye on the <strong>mini map</strong> in the top-right corner to see your position and enemy locations. Click on the mini map to expand it for a better view</li>
+        </ul>
+        <p><strong>GOOD LUCK, and may you survive the maze</strong></p>
+    </div>
 </body>
 
 </html>
