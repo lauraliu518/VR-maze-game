@@ -50,6 +50,7 @@ let game = 0;
 let weapon;
 
 //exit door variables
+let exitDoor;
 let doorX = 48;
 let doorY = 0;
 let doorZ = 0;
@@ -136,7 +137,7 @@ function setup(){
     doorX = doorX + conversionOffset;
     doorZ = doorZ + conversionOffset;
     //create exit door
-    let exitDoor = new AFrameP5.GLTF({
+    exitDoor = new AFrameP5.GLTF({
         x: doorX,
         y: doorY,
         z: doorZ,
