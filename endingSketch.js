@@ -13,6 +13,8 @@ let timeTaken = 0;
 //particle system array
 let bricks = [];
 
+let colorFactor = 1;
+
 function preload(){
     playImg = loadImage("sources/playBtn.png");
     bg = loadImage("sources/endBg.jpg");
@@ -87,7 +89,22 @@ function win(){
     textStyle(BOLD);
     textAlign(CENTER);
     text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
-    text("Press PLAY to replay", width/2, height/2+1*height/15);
+    push();
+    if(frameCount % 30 == 0){
+        colorFactor *= -1;
+    }
+    if(colorFactor == 1){
+        fill(75, 180, 0);
+        stroke(100, 30, 30);
+        text("Press PLAY to replay", width/2, height/2+1*height/15);
+    }else if(colorFactor == -1){
+        // fill(0);
+        // stroke(0);
+        fill(150, 75, 0);
+        stroke(50, 30, 30);
+        text("Press PLAY to replay", width/2, height/2+1*height/15);
+    }
+    pop();
 
     //PLAY button
     imageMode(CENTER);
@@ -142,6 +159,7 @@ function lose(){
     rect(width/2, height/2, width/1.5, height/3, 30);
 
     //center info
+    //time taken
     textSize(50);
     fill(255, 75, 0);
     stroke(100, 30, 30);
@@ -150,7 +168,23 @@ function lose(){
     textAlign(CENTER);
     timeTaken = int(timeTaken);
     text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
-    text("Press PLAY to replay", width/2, height/2+1*height/15);
+    //flashing effet
+    push();
+    if(frameCount % 30 == 0){
+        colorFactor *= -1;
+    }
+    if(colorFactor == 1){
+        fill(255, 75, 0);
+        stroke(100, 30, 30);
+        text("Press PLAY to replay", width/2, height/2+1*height/15);
+    }else if(colorFactor == -1){
+        // fill(0);
+        // stroke(0);
+        fill(150, 75, 0);
+        stroke(50, 30, 30);
+        text("Press PLAY to replay", width/2, height/2+1*height/15);
+    }
+    pop();
 
     //PLAY button
     imageMode(CENTER);
@@ -232,5 +266,9 @@ class Brick{
             return false;
         }
     }
+}
+
+function flash(){
+
 }
 
