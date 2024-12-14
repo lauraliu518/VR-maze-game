@@ -19,9 +19,10 @@ class Coin {
 
         // Restore the original speed after 500ms
         setTimeout(() => {
-            speed=0.05; // Reset to original speed
+            speed=0.10; // Reset to original speed
         }, 5000); // 5 sec
     }
+
 
     createCoin() {
         const coinInstance = this; // Store a reference to the current Coin instance
@@ -52,10 +53,15 @@ class Coin {
 
                     const userPosition = world.getUserPosition();
                     const myPosition = coins.getPosition();
-                    if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z)+ dist(userPosition.x, userPosition.y, myPosition.x, myPosition.y)< 4) {
+                    if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z)+ dist(userPosition.x, userPosition.y, myPosition.x, myPosition.y)< 4 ) {
                         coinInstance.collected = true;
-                        totalCoinCount++;
-
+                        const increasedSpeed = 0.20; 
+                        speed = increasedSpeed; 
+                        flags[0] = true;
+                        setTimeout(() => {
+                            flags[0] = false;
+                            speed=0.10; // Reset to original flag
+                        }, 5000);
                         
                         // coinInstance.buffer.clear();
                         // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
@@ -105,6 +111,7 @@ class Coin {
                     const myPosition = coins.getPosition();
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 2) {
                         coinInstance.collected = true;
+                        totalCoinCount++;
 
                         // points++;
                         // coinInstance.buffer.clear();

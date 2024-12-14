@@ -45,15 +45,17 @@ class Follower {
 
                 // Check collision with the user
                 if (userDistance <= 1) {
+                    //win = 1;
                     enemyInstance.caughtUser = true;
                     world.remove(box);
+
 
                     hudBuffer.clear();
                     updateHudColor(255, 0, 0);
                     hudBuffer.textSize(50);
                     hudBuffer.textAlign(CENTER, CENTER);
                     hudBuffer.fill(255);
-                    hudBuffer.text("GG...\n Don't be too close to the monsters!!!", window.innerWidth / 2, window.innerHeight / 2);
+                    //hudBuffer.text("GG...\n Don't be too close to the monsters!!!", window.innerWidth / 2, window.innerHeight / 2);
                 }
 
                 // Check collision with the weapon

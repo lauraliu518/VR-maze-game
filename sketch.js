@@ -16,6 +16,7 @@ let userX, userY, userZ;
 //wall mapping map
 let mapGraphic;
 let level;
+let totalItemCount;
 
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
@@ -28,7 +29,7 @@ let blockSize = 1;
 
 //follower variables
 let followers = [];
-let initialEnemyCount;
+let followerCount;
 
 //tree variables
 let trees = [];
@@ -60,7 +61,7 @@ let inventory, inventoryBuffer, inventoryTexture; //size 256x32
 //size 32x32
 let icons = []; //sprinterIcon, slowIcon, teleportIcon, coinIcon, swingCount
 let totalCoinCount = 0;
-let totalSwing = 40;
+let totalSwing;
 let speedUpFlag = false;
 let slowDownFlag = false;
 let teleportFlag = false;
@@ -83,10 +84,19 @@ function setup(){
     // assign the corresponding map based on the 'level' parameter
     if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
+        followerCount = 20;
+        totalItemCount = 15;
+        totalSwing = 40;
     } else if(window.localStorage.getItem('level') == 2){
         mapGraphic = level2;
+        followerCount = 50;
+        totalItemCount = 20;
+        totalSwing = 30;
     } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
+        followerCount = 60;
+        totalItemCount = 40;
+        totalSwing = 30;
     };
 
     // start the game time
@@ -156,10 +166,10 @@ function setup(){
 
     //enemies
     //adding enemies
-    for(let i = 0; i < initialEnemyCount; i++){
-        //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
-        enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
-    }
+    // for(let i = 0; i < initialEnemyCount; i++){
+    //     //arguments: enemy(x, y, z, moveAxis, moveDirection, maxMoveAmount)
+    //     enemies.push(new Enemy(random(-15, 15), 2, random(-10, -20), 0, -1, random(300, 500)));
+    // }
 
     // adding random trees into the platform
     for(let i = 0; i < 10; i++){
@@ -188,7 +198,7 @@ function setup(){
     }
 
     // create followers
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < followerCount; i++) {
         let x = random(-48, 48);
         let z = random(-48, 48);
         followers.push(new Follower(x,1.5,z,0.01));
@@ -274,6 +284,7 @@ function setup(){
 }
 
 function draw(){
+    //console.log(flags[0]);
     inventoryBuffer.fill(212, 106, 106);
     inventoryBuffer.strokeWeight(2);
     inventoryBuffer.stroke(85, 0, 0);
@@ -304,7 +315,7 @@ function draw(){
     inventoryBuffer.text(totalSwing, 16+120, 18);
 
     for(let i = 0; i < 3; i++){
-        if(flags[i]==false){
+        if(flags[i] == false){
             inventoryBuffer.strokeWeight(2);
             inventoryBuffer.stroke(0);
             inventoryBuffer.line(3+i*30, 3, 29+i*30, 29);
@@ -406,9 +417,9 @@ function draw(){
         let objectAhead = sensor.getEntityInFrontOfUser();
         // assume we can move forward
         let noObstacle = true;
-        console.log(objectAhead);
+        //console.log(objectAhead);
         // if there is an object, it is close and it is solid, prevent motion
-        if (objectAhead && objectAhead.distance < 1 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 1.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
@@ -419,7 +430,7 @@ function draw(){
     if (keyIsDown(83)) {
         let objectAhead = sensor.getEntityBehindUser();
         let noObstacle = true;
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 1.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
@@ -431,7 +442,7 @@ function draw(){
         let objectAhead = sensor.getEntityLeftOfUser();
         let noObstacle = true;
         //console.log(objectAhead);
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 1.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
@@ -442,7 +453,7 @@ function draw(){
     if (keyIsDown(68)) {
         let objectAhead = sensor.getEntityRightOfUser();
         let noObstacle = true;
-        if (objectAhead && objectAhead.distance < 0.5 && objectAhead.object.el.object3D.userData.solid) {
+        if (objectAhead && objectAhead.distance < 1.5 && objectAhead.object.el.object3D.userData.solid) {
             noObstacle = false;
         }
         if (noObstacle) {
