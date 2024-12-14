@@ -45,6 +45,7 @@ function draw(){
     // keeping track of time
     if (startTime != null) {
         timeTaken = startTime / 60; // time for every 60 seconds
+
         window.localStorage.removeItem('startTime');
     }
 
