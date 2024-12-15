@@ -512,8 +512,5 @@ function draw(){
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }
-
-    
-    
 }
 

@@ -86,5 +86,5 @@ function mousePressed() {
 
 function startLevel(levelNumber) {
     window.localStorage.setItem('level', levelNumber);
-    window.location.href = `gameplay.html`;
+    window.location.href = "gameplay.html";
 }
