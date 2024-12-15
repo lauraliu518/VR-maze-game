@@ -22,8 +22,6 @@ let coinCount;
 let spiderWebCount;
 let portalCount;
 
-
-
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
 //3D world width and depth
@@ -94,7 +92,6 @@ function preload(){
     icons[4] = loadImage("sources/icons/swordIcon.png");
     //myfont = loadFont("sources/fontResource/Tiny5/Tiny5-Regular.ttf"); 
     myfont = loadFont("sources/fontResource/Orbitron/Orbitron-VariableFont_wght.ttf"); 
-
 }
 
 function setup(){
@@ -334,7 +331,6 @@ function setup(){
         dynamicTextureHeight: 1,
     })
     world.addToHUD(inventory, 0, -0.3, -0.5);
-
 }
 
 function draw(){

@@ -41,8 +41,7 @@ function setup(){
         console.log("Error retreving time taken from game.");
     }else{
         timeTaken = window.localStorage.getItem('timeTaken');
-    }
-   
+    } 
 }
 
 function draw(){
@@ -125,7 +124,6 @@ function win(){
         winState = 0;
         window.location.href = "gameplay.html";
     }
-
 }
 
 function lose(){
@@ -205,7 +203,6 @@ function lose(){
         winState = 0;
         window.location.href = "index.html";
     }
-
 }
 
 //This function is adopted from P5 open source code by Arkimedz. Reference to link: https://editor.p5js.org/Arkimedz/sketches/0VHgrQruB
@@ -242,7 +239,6 @@ function rotateText(x, y, radius, txt) {
     }
 
     pop()
-
 }
 
 class Brick{

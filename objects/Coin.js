@@ -22,7 +22,6 @@ class Coin {
         }, 5000); // 5 sec
     }
 
-
     createCoin() {
         const coinInstance = this; // Store a reference to the current Coin instance
 
@@ -188,7 +187,6 @@ class Coin {
                     }, 1000);
                 }
             });
-            
         }
         // Add coin to the world
         world.add(this.coin);
