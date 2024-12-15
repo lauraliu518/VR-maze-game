@@ -1,5 +1,3 @@
-// elizabeth's tasks, minimap/dynamic texture?, trees, starting page, lighting?, time of day and timer somewhere, loading page
-
 // image variables
 let playIcon, hoverIcon, bg, titleBack;
 
