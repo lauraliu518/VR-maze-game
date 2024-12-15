@@ -16,7 +16,13 @@ let userX, userY, userZ;
 //wall mapping map
 let mapGraphic;
 let level;
-let totalItemCount;
+
+let octahedronCount;
+let coinCount;
+let spiderWebCount;
+let portalCount;
+
+
 
 //offset for map parsing, offset = cubeSideLength/2
 let offset = 0.5;
@@ -99,18 +105,27 @@ function setup(){
     if(window.localStorage.getItem('level') == 1){
         mapGraphic = level1;
         followerCount = 10;
-        totalItemCount = 15;
         totalSwing = 15;
+        octahedronCount = 15;
+        coinCount = 20;
+        spiderWebCount = 10;
+        portalCount = 5;
     } else if(window.localStorage.getItem('level') == 2){
         mapGraphic = level2;
         followerCount = 20;
-        totalItemCount = 20;
         totalSwing = 25;
+        octahedronCount = 15;
+        coinCount = 20;
+        spiderWebCount = 20;
+        portalCount = 10;
     } else if(window.localStorage.getItem('level') == 3){
         mapGraphic = level3;
         followerCount = 50;
-        totalItemCount = 30;
         totalSwing = 20;
+        octahedronCount = 10;
+        coinCount = 20;
+        spiderWebCount = 30;
+        portalCount = 5;
     };
 
     // no canvas needed
@@ -208,27 +223,27 @@ function setup(){
             }
         }
     }
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < portalCount; i++) {
         let coinType = "portal";//random(["octahedron", "coin","spiderWeb","portal"]);
         let [x,z] = random(nonWallPos);
         new Coin(coinType, x, z);
     }
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < octahedronCount; i++) {
         let coinType = "octahedron";//random(["octahedron", "coin","spiderWeb","portal"]);
         let [x,z] = random(nonWallPos);
 
         new Coin(coinType, x, z);
     }
 
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < coinCount; i++) {
         let coinType = "coin";//random(["octahedron", "coin","spiderWeb","portal"]);
         let [x,z] = random(nonWallPos);
 
         new Coin(coinType, x, z);
     }
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < spiderWebCount; i++) {
         let coinType = "spiderWeb";//random(["octahedron", "coin","spiderWeb","portal"]);
         let [x,z] = random(nonWallPos);
 
