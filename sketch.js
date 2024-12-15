@@ -87,7 +87,7 @@ function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
     level3 = loadImage("sources/maps/level3.png");
-    icons[0] = loadImage("sources/icons/sprinterIcon.png");
+    icons[0] = loadImage("sources/icons/sprinter.png");
     icons[1] = loadImage("sources/icons/slowIcon.webp");
     icons[2] = loadImage("sources/icons/teleportIcon.png");
     icons[3] = loadImage("sources/icons/coinIcon.png");
