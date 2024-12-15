@@ -118,10 +118,8 @@ function win(){
     buffer.strokeWeight(2);
     buffer.rectMode(CENTER);
     buffer.rect(width/2, height/2+height/3.5, width/4, height/7, 30);
-    // image(buffer,0,0);
     //page jump back to game play
     let mouseLocRedness = red(buffer.get(mouseX, mouseY));
-    //console.log(mouseLocRedness);
     if(mouseLocRedness == 255 && mouseIsPressed){
         window.localStorage.setItem("winState", 0);
         winState = 0;
@@ -268,7 +266,4 @@ class Brick{
     }
 }
 
-function flash(){
-
-}
 

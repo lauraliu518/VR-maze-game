@@ -14,7 +14,6 @@ class Coin {
     slowUser() {
         // Slow down the user's speed
         const reducedSpeed = 0.01; // Reduce speed by 50%
-
         speed = reducedSpeed; // Set reduced speed
 
         // Restore the original speed after 500ms
@@ -62,14 +61,6 @@ class Coin {
                             flags[0] = false;
                             speed=0.10; // Reset to original flag
                         }, 5000);
-                        
-                        // coinInstance.buffer.clear();
-                        // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
-                        // if (points >= 10) {
-                        //     coinInstance.buffer.clear();
-                        //     coinInstance.buffer.text("Nice!", 512 / 2, 512 / 2);
-                        //     points = 0;
-                        // }
 
                         // Remove the coin from the world
                         world.remove(coins);
@@ -110,15 +101,6 @@ class Coin {
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 2) {
                         coinInstance.collected = true;
                         totalCoinCount++;
-
-                        // points++;
-                        // coinInstance.buffer.clear();
-                        // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
-                        // if (points >= 10) {
-                        //     coinInstance.buffer.clear();
-                        //     coinInstance.buffer.text("Nice!", 512 / 2, 512 / 2);
-                        //     points = 0;
-                        // }
 
                         // Remove the coin from the world
                         world.remove(coins);
@@ -168,16 +150,6 @@ class Coin {
                             speed=0.10; // Reset to original flag
                         }, 5000);
                         
-
-                        // points++;
-                        // coinInstance.buffer.clear();
-                        // coinInstance.buffer.text("Points: " + points, 512 / 2, 512 / 2);
-                        // if (points >= 10) {
-                        //     coinInstance.buffer.clear();
-                        //     coinInstance.buffer.text("Nice!", 512 / 2, 512 / 2);
-                        //     points = 0;
-                        // }
-
                         // Remove the coin from the world
                         world.remove(coins);
                     }

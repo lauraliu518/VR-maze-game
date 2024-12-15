@@ -85,7 +85,6 @@
         });
     </script>
 
-    <!-- container to hold our VR scene - make sure to give this element an ID of 'VRScene' -->
     <a-scene id="VRScene">
         <a-assets id="VRAssets">
             <!-- map of the maze -->
@@ -103,14 +102,11 @@
             <img id = "brick" src = "sources/brick.jpg">
             <img id = "rockWall" src = "sources/rockTexture.png">
 
+            <!-- special effect items -->
             <a-asset-item id = "coinImg" src="sources/coin/scene.gltf"></a-asset-item>
-
             <a-asset-item id = "spiderWeb" src="sources/spiders_web/scene.gltf"></a-asset-item>
-            
             <a-asset-item id = "portal" src="sources/portal_cube/scene.gltf"></a-asset-item>
-
             <a-asset-item id = "ghost" src="sources/low_poly_ghost/scene.gltf"></a-asset-item>
-            
             
             <!-- door -->
             <a-asset-item id = "door" src="sources/door/scene.gltf"></a-asset-item>
@@ -123,11 +119,7 @@
             <!-- tree obj -->
             <a-asset-item id= "trees" src = "sources/tree.obj"></a-asset-item>
             <a-asset-item id= "trees_mtl" src = "sources/tree.mtl"></a-asset-item>
-
         </a-assets>
-
     </a-scene>
-
 </body>
-
 </html>

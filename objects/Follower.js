@@ -45,9 +45,6 @@ class Follower {
                 //check collision with the user
                 if (userDistance <= 1) {
                     enemyInstance.caughtUser = true;
-                    // win = 1;
-                    // window.localStorage.setItem("winState", win);
-                    // window.location.href = "ending.html";
                     world.remove(enemy);
 
                     hudBuffer.clear();
@@ -64,7 +61,6 @@ class Follower {
                 }
             },
         });
-
         world.add(this.enemy);
     }
 }

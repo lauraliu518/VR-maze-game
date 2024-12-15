@@ -323,40 +323,40 @@ function setup(){
 }
 
 function draw(){
-    //console.log(flags[0]);
+    //inventory bar
+    //inventory buffer background set up
     inventoryBuffer.fill(212, 106, 106);
     inventoryBuffer.strokeWeight(2);
     inventoryBuffer.stroke(85, 0, 0);
+
+    //create individual cubes
     for(let i = 0; i < 150; i += 30){
         inventoryBuffer.rect(1+i, 1, 30, 30);
     }
+
+    //draw special effect items icon
     for(let i = 0; i < 90; i += 30){
-        //icon drawing. center point (16+i, 16), icon index i/30
+        //center point (16+i, 16), icon index i/30
         inventoryBuffer.imageMode(CENTER);
         inventoryBuffer.image(icons[i/30], 1+15+i, 16, 25, 25);
         
     }
+
+    //draw coin count and swing count
     for(let i = 90; i < 150; i += 30){
-        //icon drawing. center point (16+i, 16), icon index i/30
         inventoryBuffer.imageMode(CENTER);
         inventoryBuffer.image(icons[i/30], 1+15+i, 10, 12, 12);
     }
+
+    //display coin count
     inventoryBuffer.textAlign(CENTER);
-    inventoryBuffer.rectMode(CENTER);
-    inventoryBuffer.fill(0, 0, 0, 80);
-    inventoryBuffer.noStroke();
-    //inventoryBuffer.rect(16+90, 16, 30, 30);
     inventoryBuffer.rectMode(CORNER);
-    inventoryBuffer.fill(255);
+    inventoryBuffer.noStroke();
     inventoryBuffer.textSize(10);
     inventoryBuffer.fill(0);
     inventoryBuffer.text(totalCoinCount, 16+90, 27);
-
-    inventoryBuffer.rectMode(CENTER);
-    inventoryBuffer.fill(0, 0, 0, 80);
-    inventoryBuffer.noStroke();
-    //inventoryBuffer.rect(16+120, 16, 30, 30);
-    inventoryBuffer.rectMode(CORNER);
+    
+    //display swing count with warning
     if(totalSwing <= 10){
         inventoryBuffer.fill(255, 0, 0);
         inventoryBuffer.stroke(0);
@@ -365,7 +365,8 @@ function draw(){
         inventoryBuffer.fill(0);
     }
     inventoryBuffer.text(totalSwing, 16+120, 27);
-
+    
+    //display deactivation line for special effect items
     for(let i = 0; i < 3; i++){
         if(flags[i] == false){
             inventoryBuffer.strokeWeight(2);
