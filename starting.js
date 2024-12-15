@@ -35,18 +35,18 @@ function draw() {
     image(bg, 0, 0, width, height);
 
     // draw title background
-    image(titleBack, width / 2 - titleBack.width / 2, height / 4.5);
+    image(titleBack, width / 2 - titleBack.width / 2, height / 4.5 - 50);
 
     // formatting the text
     fill(255,255,102);
     textAlign(CENTER, CENTER);
     textSize(60);
     noStroke();
-    text("Survival Maze ", width / 2, height / 5 + titleBack.height / 2);
+    text("Survival Maze ", width / 2, height / 5 + titleBack.height / 2 - 50);
 
     // make play button
     let playX = width / 2 - playIcon.width / 2;
-    let playY = height / 2 - playIcon.height / 2;
+    let playY = height / 2 - playIcon.height / 2 -50;
 
     // if the user's mouse is over the play button, allow the icon to hover and indicate it is going to be pressed
     if (mouseX > playX && mouseX < playX + playIcon.width && mouseY > playY && mouseY < playY + playIcon.height) {
