@@ -352,7 +352,6 @@ function draw(){
         //center point (16+i, 16), icon index i/30
         inventoryBuffer.imageMode(CENTER);
         inventoryBuffer.image(icons[i/30], 1+15+i, 16, 25, 25);
-        
     }
 
     //draw coin count and swing count
@@ -450,6 +449,20 @@ function draw(){
         buffer2.rect(largeFollowerX, largeFollowerY, 50, 50); 
     }
 
+    // map the door onto the minimap
+    let miniDoorX = map(doorX, -50, 50, 0, 256);
+    let miniDoorY = map(doorZ, -50, 50, 0, 256);
+    buffer1.fill(255, 0, 0);
+    buffer1.noStroke();
+    buffer1.rect(miniDoorX - 5, miniDoorY - 5, 15, 15);
+
+    // map the door onto the larger minimap
+    let largeDoorX = map(doorX, -50, 50, 0, 1536);
+    let largeDoorY = map(doorZ, -50, 50, 0, 1536);
+    buffer2.fill(255, 0, 0);
+    buffer2.noStroke();
+    buffer2.rect(largeDoorX - 25, largeDoorY - 25, 60, 60);
+    
     if (weapon) {
         weapon.update(userPosition, userRotation);
     }
