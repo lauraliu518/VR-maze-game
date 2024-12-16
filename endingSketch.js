@@ -9,6 +9,7 @@ let canvas;
 //win state variable passed in from game play webpage. 1 for lose, 2 for win, 0 for playing
 let winState;
 let timeTaken = 0;
+let totalCoins = 0;
 
 //particle system array
 let bricks = [];
@@ -41,6 +42,11 @@ function setup(){
         console.log("Error retreving time taken from game.");
     }else{
         timeTaken = window.localStorage.getItem('timeTaken');
+    } 
+    if(window.localStorage.getItem("coinsCollected") == null){
+        console.log("Error retreving time taken from game.");
+    }else{
+        totalCoins = window.localStorage.getItem('coinsCollected');
     } 
 }
 
@@ -88,6 +94,7 @@ function win(){
     textStyle(BOLD);
     textAlign(CENTER);
     text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
+    text("Coins collected: " + totalCoins + " coins", width/2, height/2-1*height/15+60);
     push();
     if(frameCount % 30 == 0){
         colorFactor *= -1;
@@ -95,13 +102,13 @@ function win(){
     if(colorFactor == 1){
         fill(75, 180, 0);
         stroke(100, 30, 30);
-        text("Press PLAY to replay", width/2, height/2+1*height/15);
+        text("Press PLAY to replay", width/2, height/2+1*height/15+10);
     }else if(colorFactor == -1){
         // fill(0);
         // stroke(0);
         fill(150, 75, 0);
         stroke(50, 30, 30);
-        text("Press PLAY to replay", width/2, height/2+1*height/15);
+        text("Press PLAY to replay", width/2, height/2+1*height/15+10);
     }
     pop();
 
@@ -164,6 +171,7 @@ function lose(){
     textAlign(CENTER);
     timeTaken = int(timeTaken);
     text("Time Taken: " + timeTaken + " seconds", width/2, height/2-1*height/15);
+    text("Coins collected: " + totalCoins + " coins", width/2, height/2-1*height/15+60);
     //flashing effet
     push();
     if(frameCount % 30 == 0){

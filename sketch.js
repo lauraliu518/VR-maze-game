@@ -81,6 +81,8 @@ let startingTime;
 let elapsedTime;
 let timeTaked = false;
 
+let coinCollected = 0;
+
 function preload(){
     level1 = loadImage("sources/maps/level1.png");
     level2 = loadImage("sources/maps/level2.png");
@@ -521,6 +523,7 @@ function draw(){
             elapsedTime = int((endingTime - startingTime)/1000);//casting time taken to int
         }
         window.localStorage.setItem("timeTaken", elapsedTime);
+        window.localStorage.setItem("coinsCollected", coinCollected);
         window.localStorage.setItem("winState", win);
         window.location.href = "ending.html";
     }

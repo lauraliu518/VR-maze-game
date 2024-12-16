@@ -100,6 +100,7 @@ class Coin {
                     if (dist(userPosition.x, userPosition.z, myPosition.x, myPosition.z) < 2) {
                         coinInstance.collected = true;
                         totalCoinCount++;
+                        coinCollected++;
 
                         // Remove the coin from the world
                         world.remove(coins);
